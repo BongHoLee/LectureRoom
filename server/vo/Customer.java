@@ -1,4 +1,4 @@
-package vo;
+package server.vo;
 
 public class Customer {
 	private String c_id;						//고객 ID

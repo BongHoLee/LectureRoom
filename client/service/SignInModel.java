@@ -1,4 +1,4 @@
-package model;
+package client.service;
 
 public class SignInModel {
 

@@ -1,10 +1,8 @@
-package view;
+package client.view;
 
 import java.awt.*;
 import javax.swing.*;
 
-import model.SignInModel;
-import vo.Customer;
 
 import java.awt.event.*;
 
@@ -15,7 +13,6 @@ public class SignInView extends JFrame implements ActionListener{
 	JPasswordField tfCustPw;
 	JButton bCustSignIn, bCancel;									//회원가입 버튼, 취소 버튼 정의
 	
-	SignInModel smodel;												//SignIn 모델 객체 생성
 	
 	public SignInView(){
 		addLayout();

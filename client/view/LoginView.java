@@ -1,10 +1,9 @@
-package view;
+package client.view;
 
 
 import java.awt.event.*;
 import javax.swing.*;
 
-import model.LoginModel;
 
 public class LoginView extends JFrame implements ActionListener{
 	
@@ -15,7 +14,6 @@ public class LoginView extends JFrame implements ActionListener{
 	JLabel LCustId;
 	JLabel LCustPw;
 	
-	LoginModel Lmodel;										//로그인 모델의 객체
 	
 	public LoginView() {
 		addLayout();
@@ -61,8 +59,6 @@ public class LoginView extends JFrame implements ActionListener{
 		setVisible(true);
 		
 	}
-	
-	
 	
 	
 	@Override
