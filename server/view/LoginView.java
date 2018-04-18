@@ -8,44 +8,57 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import client.vo.Customer;
+import server.model.LoginModel;
+import server.vo.Manager;
 
 
 public class LoginView extends JFrame implements ActionListener{
 	
-	JTextField tfCustId;											//고객 아이디, 패스워드 입력 필드
-	JPasswordField tfCustPw;
-	JButton bCustLogin;						//고객 회원가입, 로그인 버튼
+	JTextField tfManId;											//Manager 아이디, 패스워드 입력 필드
+	JPasswordField tfManPw;
+	JButton bManLogin;										//Manager  로그인 버튼
 	
-	JLabel LCustId;
-	JLabel LCustPw;
+	LoginModel lmodel;										//DB연동을 위한 LoginModel 객체
 	
-	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
+	BufferedImage img = null;								//	이미지를 담는 버퍼드 이미지 객체 선언
+	
 	
 	
 	public LoginView() {
 		addLayout();
 		eventProc();
+		connectDB();
+	}
+	
+	//LoginModel객체를 이용하여 DB에 연결하고 DB에 접근하기 위함
+	public void connectDB() {
+		try {
+			lmodel = new LoginModel();
+			System.out.println("서버 로그인 DB연동 완료");
+		} catch (Exception e) {
+			System.out.println("서버 로그인 DB연동 실패");
+			e.printStackTrace();
+		}							
+		
 	}
 	
 	public void addLayout(){
-		tfCustId = new JTextField(20);
-		tfCustPw = new JPasswordField(20);
+		tfManId = new JTextField(20);
+		tfManPw = new JPasswordField(20);
 		
-		bCustLogin = new JButton("로 그 인");
+		bManLogin = new JButton("로 그 인");
 		
-//		LCustId = new JLabel("ID");
-//		LCustPw = new JLabel("Password");
 		
 		try {
 			img = ImageIO.read(new File("src/img/Login.png"));
@@ -69,29 +82,24 @@ public class LoginView extends JFrame implements ActionListener{
 		Mypanel mp = new Mypanel();
 		mp.setBounds(0, 0, 409, 514);
 		
-//		LCustId.setBounds(10,10,80,25);
-//		panel.add(LCustId);
-//		
-//		LCustPw.setBounds(10, 40, 80, 25);
-//		panel.add(LCustPw);
 		
-		tfCustId.setBounds(150, 96, 160, 30);
-		panel.add(tfCustId);
-		tfCustId.setOpaque(false);
-		tfCustId.setForeground(Color.WHITE);
-		tfCustId.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfManId.setBounds(150, 96, 160, 30);
+		panel.add(tfManId);
+		tfManId.setOpaque(false);
+		tfManId.setForeground(Color.WHITE);
+		tfManId.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
 		
-		tfCustPw.setBounds(150, 223, 160, 30);
-		panel.add(tfCustPw);
-		tfCustPw.setOpaque(false);
-		tfCustPw.setForeground(Color.WHITE);
-		tfCustPw.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfManPw.setBounds(150, 223, 160, 30);
+		panel.add(tfManPw);
+		tfManPw.setOpaque(false);
+		tfManPw.setForeground(Color.WHITE);
+		tfManPw.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
 		
-		bCustLogin.setBounds(105, 330, 200, 50);
-		panel.add(bCustLogin);
-		bCustLogin.setForeground(Color.WHITE);
-        bCustLogin.setFocusPainted(false);
-        bCustLogin.setContentAreaFilled(false);
+		bManLogin.setBounds(105, 330, 200, 50);
+		panel.add(bManLogin);
+		bManLogin.setForeground(Color.WHITE);
+        bManLogin.setFocusPainted(false);
+        bManLogin.setContentAreaFilled(false);
 		
 		panel.add(mp);
 		add(panel);
@@ -100,26 +108,43 @@ public class LoginView extends JFrame implements ActionListener{
 	}
 	
 	public void eventProc(){
-		bCustLogin.addActionListener(this);
+		bManLogin.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
-		if(evt == bCustLogin){
-			login();
+		if(evt == bManLogin){
+			try {
+				login();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}
 	
 	//로그인 버튼이 눌렸을 때 실행되는 메소드
-	public void login(){
-		Customer cust = new Customer();
-		String id = tfCustId.getText();
-		String pw = String.valueOf(tfCustPw.getPassword());
+	public void login() throws SQLException{
+		int status = 0;
+		Manager man = new Manager();
+		man.setM_id(tfManId.getText());
+		man.setM_pw(tfManPw.getText());
 		
-		cust.setC_id(id);
-		cust.setC_pw(pw);
+		status = lmodel.loginManager(man);
+		
+		if(status == 0){
+			tfManId.setText("");
+			tfManPw.setText("");
+			JOptionPane.showMessageDialog(null, "ID를 다시 확인하세요");
+		}else if(status == 1){
+			tfManPw.setText("");
+			JOptionPane.showMessageDialog(null, "PW를 확인하세요");
+		}else if(status == 2){
+			JOptionPane.showMessageDialog(null, "로그인 성공!");
+		}
+		
 		
 		
 	}
