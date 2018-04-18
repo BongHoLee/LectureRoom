@@ -17,8 +17,8 @@ public class LoginModel {
 		cusArr = new ArrayList();
 	}
 	
-	public boolean loginCustomer(Customer cus) throws SQLException{
-		boolean check = false;
+	public int loginCustomer(Customer cus) throws SQLException{
+		int status = 0;								//ID와 PW 여부에 따른 상태값
 		String sql = "SELECT C_ID, C_PW FROM customer WHERE C_ID=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		
@@ -27,15 +27,14 @@ public class LoginModel {
 		
 		//고객이 입력한 ID와 일치하는 ID가 데이터베이스에 존재할 경우 
 		if(rs.next()){
-			String id="";
-			String pw="";
+			status = 1;								//ID는 있지만 PW가 틀린 경우
 			//고객이 입력한 비밀번호와 DB에 저장된 비밀번호가 일치한 경우 true 반환
 			if(rs.getString("C_PW").equals(cus.getC_pw())){
-				check = true;
+				status  = 2;							//ID와 PW 모두 맞는경우(로그인완료)
 			}
 		}
 		rs.close();
 		ps.close();
-		return check;
+		return status;
 	}
 }
