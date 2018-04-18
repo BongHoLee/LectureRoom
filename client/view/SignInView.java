@@ -20,9 +20,11 @@ public class SignInView extends JFrame implements ActionListener{
 	JButton bCustSignIn, bCancel;									//회원가입 버튼, 취소 버튼 정의
 	
 	BufferedImage img = null;
+	LoginView lv; // 로드인뷰 객체
 	
 	public SignInView(){
 		addLayout();
+		eventProc();
 	}
 	
 	public void addLayout(){
@@ -101,10 +103,29 @@ public class SignInView extends JFrame implements ActionListener{
 		
 	}
 	
+	public void eventProc(){
+		bCancel.addActionListener(this);
+		bCustSignIn.addActionListener(this);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object evt = e.getSource();
+		if(evt == bCustSignIn){
+			signin();
+		}else if(evt == bCancel){
+			cancel();
+		}
 		
+	}
+	
+	public void signin(){
+		
+	}
+	
+	public void cancel(){
+		lv = new LoginView();
+		dispose();
 	}
 	
 	
