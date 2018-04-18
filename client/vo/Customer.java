@@ -3,12 +3,20 @@ package client.vo;
 public class Customer {
 	private String c_id;						//고객 ID
 	private String c_pw;					//고객 PW
+	private String c_tel;					//고객 tel
 	
 	public Customer() {}
 	public Customer(String c_id, String c_pw) {
 		super();
 		this.c_id = c_id;
 		this.c_pw = c_pw;
+	}
+	
+	public Customer(String c_id, String c_pw, String c_tel){
+		super();
+		this.c_id = c_id;
+		this.c_pw = c_pw;
+		this.c_tel = c_tel;
 	}
 	
 	public String getC_id() {
@@ -22,6 +30,12 @@ public class Customer {
 	}
 	public void setC_pw(String c_pw) {
 		this.c_pw = c_pw;
+	}
+	public String getC_tel() {
+		return c_tel;
+	}
+	public void setC_tel(String c_tel) {
+		this.c_tel = c_tel;
 	}
 	
 

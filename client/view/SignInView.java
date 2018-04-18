@@ -5,12 +5,15 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import client.service.SignInModel;
 import client.view.LoginView.Mypanel;
+import client.vo.Customer;
 
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignInView extends JFrame implements ActionListener{
 	
@@ -19,10 +22,30 @@ public class SignInView extends JFrame implements ActionListener{
 	JPasswordField tfCustPw;
 	JButton bCustSignIn, bCancel;									//회원가입 버튼, 취소 버튼 정의
 	
-	BufferedImage img = null;
+	Customer cus;														//회원의 정보를 담는 Customer 객체
+	SignInModel smodel;												//SignIn모델 객체 생성
 	
+	BufferedImage img = null;
+	LoginView lv; 														// 로그인뷰 객체
+	
+	
+	//회원가입 뷰 생성자
 	public SignInView(){
 		addLayout();
+		eventProc();
+		connectDB();
+		
+	}
+	
+	//DB연동을 위해 SignInModel의 객체를 생성
+	public void connectDB() {
+		try{
+			smodel = new SignInModel();
+			System.out.println("회원가입뷰 DB 연결 성공");
+		}catch(Exception ex){
+			System.out.println("회원가입뷰 DB연결 실패");
+		}
+		
 	}
 	
 	public void addLayout(){
@@ -56,12 +79,6 @@ public class SignInView extends JFrame implements ActionListener{
 		
 		Mypanel mp = new Mypanel();
 		mp.setBounds(0, 0, 409, 514);
-		
-//		LCustId.setBounds(10,10,80,25);
-//		panel.add(LCustId);
-//		
-//		LCustPw.setBounds(10, 40, 80, 25);
-//		panel.add(LCustPw);
 		
 		tfCustId.setBounds(150, 96, 160, 30);
 		panel.add(tfCustId);
@@ -101,21 +118,57 @@ public class SignInView extends JFrame implements ActionListener{
 		
 	}
 	
+	public void eventProc(){
+		bCancel.addActionListener(this);
+		bCustSignIn.addActionListener(this);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object evt = e.getSource();
+		if(evt == bCustSignIn){
+			boolean signok = signin();
+			if(signok){
+				System.out.println("인설트 성공");
+			}else{
+				System.out.println("인설트 실패");
+			}
+		}else if(evt == bCancel){
+			cancel();
+		}
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		SignInView view = new SignInView();
+	//회원가입 버튼 클릭시 수행되는 메소드로써 데이터베이스에 갱신
+	//회원가입 성공시 true를 반환, 실패시 false 반환
+	public boolean signin(){
+		boolean check = false;
+		cus = new Customer();
+		cus.setC_id(tfCustId.getText());
+		cus.setC_pw(tfCustPw.getText());
+		cus.setC_tel(tfCustTel.getText());
+		try {
+			smodel.insertCustomer(cus);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return check;
+		
 	}
+	
+	public void cancel(){
+		lv = new LoginView();
+		dispose();
+	}
+	
 	
 	class Mypanel extends JPanel{
 		public void paint(Graphics g){
 			g.drawImage(img, 0, 0, null);
 		}
 	}
+
 
 }
