@@ -1,7 +1,7 @@
 package vo;
 
 public class Customer {
-	private String c_id;					//고객 ID
+	private String c_id;						//고객 ID
 	private String c_pw;					//고객 PW
 	
 	public Customer() {}
