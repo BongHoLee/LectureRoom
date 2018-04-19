@@ -43,6 +43,8 @@ public class ServerMain {
 				socket = serverSocket.accept(); // 클라이언트의 접속을 대기한다.
 				System.out.println("[" + socket.getInetAddress() + ":" + socket.getPort() + "]" + "에서 접속했습니다");
 
+				//클라이언트의 접속으로 인해 생성된 socket을 
+				//ServerReceiver 스레드로 넘겨준뒤  스레드를 시작한다.
 				ServerReceiver thread = new ServerReceiver(socket);
 				thread.start();
 			}
@@ -55,6 +57,9 @@ public class ServerMain {
 		new ServerMain().start();
 	}
 
+	
+	//ServerReceiver 스레드. 클라이언트가 접속하면 
+	//소켓을 받아서 클라이언트 소켓과 통신을 해주는 스레드
 	class ServerReceiver extends Thread {
 		Socket socket;
 		DataInputStream in;
