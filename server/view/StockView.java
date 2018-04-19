@@ -1,6 +1,7 @@
 package server.view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -11,16 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
-
-import server.view.SeatView.Mypanel;
+import javax.swing.table.TableCellRenderer;
 
 public class StockView extends JPanel implements ActionListener {
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
@@ -148,11 +150,24 @@ public class StockView extends JPanel implements ActionListener {
 		bCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		p_stock.add(bCancel);
 		
-		tbStockList.setBounds(550, 20, 500, 500);
+		
+		tbStockList.setBounds(0, 0, 500, 500);
 		tbStockList.setOpaque(false);
 		tbStockList.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		tbStockList.setFont(new Font("배달의민족 한나", 1, 15));
 		tbStockList.setForeground(new Color(36, 205, 198));
-		p_stock.add(tbStockList);
+		tbStockList.getTableHeader().setDefaultRenderer(new SimpleHeaderRenderer());
+	
+		
+		
+		JScrollPane p_scroll = new JScrollPane(tbStockList);
+		p_scroll.setBounds(550, 20, 500, 500);
+		p_scroll.setOpaque(false);
+		p_scroll.getViewport().setOpaque(false);
+		p_scroll.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		
+		
+		p_stock.add(p_scroll);
 		
 		
 		
@@ -184,7 +199,7 @@ public class StockView extends JPanel implements ActionListener {
 	class StockTableModel extends AbstractTableModel { 
 		  
 		ArrayList data = new ArrayList();
-		String [] columnNames = {"비디오번호","비디오제목","고객명","전화번호","반납예정일","반납여부"};
+		String [] columnNames = {"메뉴번호","메뉴이름","재고","가격"};
 
 		//=============================================================
 		// 1. 기본적인 TabelModel  만들기
@@ -208,5 +223,24 @@ public class StockView extends JPanel implements ActionListener {
 		    public String getColumnName(int col){
 		    	return columnNames[col];
 		    }
+	}
+	
+	class SimpleHeaderRenderer extends JLabel implements TableCellRenderer {
+		 
+	    public SimpleHeaderRenderer() {
+	        setFont(new Font("배달의민족 한나", Font.BOLD, 15));
+	        setOpaque(false);
+	        setForeground(new Color(36, 205, 198));
+	        setBackground(Color.BLACK);
+	        setBorder(BorderFactory.createLineBorder(new Color(36, 205, 198)));
+	    }
+	     
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {
+	        setText(value.toString());
+	        return this;
+	    }
+	 
 	}
 }
