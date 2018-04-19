@@ -13,8 +13,8 @@ public class MainView extends JFrame {
 	
 	public void addLayout(){
 		JTabbedPane  pane = new JTabbedPane();
-		seatV = new SeatView();
-		stockV = new StockView();
+		seatV = new SeatView();											//좌석 탭
+		stockV = new StockView();										//재고 탭
 		
 
 		// 화면크기지정
@@ -31,7 +31,4 @@ public class MainView extends JFrame {
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
 	
-	public static void main(String[] args) {
-		MainView mainView = new MainView();
-	}
 }

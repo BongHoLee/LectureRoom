@@ -22,13 +22,15 @@ import client.vo.Customer;
 public class SeatView extends JPanel implements ActionListener {
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
 	int posX, posY;	//	좌석패널의 좌표를 계산하기 위한 인트값
-	PanSeat[] pan = new PanSeat[30];	//	좌석패널 배열
-	
+	PanSeat[] pan;		//pan[0] == 좌석번호 1번.... pan[29] == 좌석번호 30
+							//pan을 어떻게 넘겨줄것인지 생각해야한다.
 	
 	
 	public SeatView() {
+		pan = new PanSeat[30];	//	좌석패널 배열
 		addLayout();
 		eventProc();
+		
 	}
 	
 	public void addLayout(){

@@ -61,16 +61,7 @@ public class PanSeat extends JPanel {
         setOpaque(false);
         setFocusable(true);
     }
- 
-//    public static void main(String[] args) {
-//        JFrame frameTest = new JFrame();
-//        frameTest.setTitle("시트패널");
-//        frameTest.add(new PanSeat(1));
-//        frameTest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frameTest.setSize(99, 144);
-//        frameTest.setVisible(true);
-//    }
- 
+  
     class InnerPanel extends JPanel {
         private static final long serialVersionUID = 1547128190348749556L;
         public void paint(Graphics g) {

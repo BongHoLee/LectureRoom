@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import server.model.LoginModel;
+import server.service.ServerMain;
 import server.vo.Manager;
 
 
@@ -30,6 +31,7 @@ public class LoginView extends JFrame implements ActionListener{
 	JButton bManLogin;										//Manager  로그인 버튼
 	
 	LoginModel lmodel;										//DB연동을 위한 LoginModel 객체
+	ServerMain sm;												//로그인 성공시 구동하기 위한 Server Main
 	
 	BufferedImage img = null;								//	이미지를 담는 버퍼드 이미지 객체 선언
 	
@@ -144,6 +146,7 @@ public class LoginView extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, "PW를 확인하세요");
 		}else if(status == 2){
 			JOptionPane.showMessageDialog(null, "로그인 성공!");
+			sm = new ServerMain();			//로그인 성공시 ServerMain 구동
 		}
 		
 		
