@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 public class MainView extends JFrame {
 	SeatView seatV;
 	StockView stockV;
+	SalesView SalesV;
 	
 	public MainView(){
 		addLayout();
@@ -31,7 +32,7 @@ public class MainView extends JFrame {
 		JTabbedPane  pane = new JTabbedPane();
 		seatV = new SeatView();											//좌석 탭
 		stockV = new StockView();										//재고 탭
-		
+		SalesV = new SalesView();
 
 		// 화면크기지정
 		add("Center", pane );
@@ -40,11 +41,16 @@ public class MainView extends JFrame {
 		setVisible( true );
 		pane.addTab("좌석관리", seatV);
 		pane.addTab("재고관리", stockV);
+		pane.addTab("매출관리", SalesV);
 		
 		
 		
 
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	}
+	
+	public static void main(String[] args) {
+		new MainView();
 	}
 	
 }

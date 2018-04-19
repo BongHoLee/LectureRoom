@@ -229,7 +229,7 @@ public class StockView extends JPanel implements ActionListener {
 		 
 	    public SimpleHeaderRenderer() {
 	        setFont(new Font("배달의민족 한나", Font.BOLD, 15));
-	        setOpaque(false);
+	        setOpaque(true);
 	        setForeground(new Color(36, 205, 198));
 	        setBackground(Color.BLACK);
 	        setBorder(BorderFactory.createLineBorder(new Color(36, 205, 198)));
