@@ -11,6 +11,22 @@ public class MainView extends JFrame {
 		addLayout();
 	}
 	
+	public SeatView getSeatV() {
+		return seatV;
+	}
+
+	public void setSeatV(SeatView seatV) {
+		this.seatV = seatV;
+	}
+
+	public StockView getStockV() {
+		return stockV;
+	}
+
+	public void setStockV(StockView stockV) {
+		this.stockV = stockV;
+	}
+
 	public void addLayout(){
 		JTabbedPane  pane = new JTabbedPane();
 		seatV = new SeatView();											//좌석 탭

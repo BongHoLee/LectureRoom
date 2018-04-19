@@ -5,12 +5,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
+import server.view.SeatView;
+
 
 //클라이언트의 접속을 대기하는 스레드
 public class ServerSc implements Runnable{
 	
 	ServerSocket serverSocket;							//클라이언트와의 통신을 위한 서버 소켓
 	Socket connection;										//클라이언트 접속시 생성되는 소켓
+	SeatView sv;												//SeatView를 넘겨받음
 	
 	public ServerSc(){
 		try {
