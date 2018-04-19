@@ -33,6 +33,14 @@ public class SeatView extends JPanel implements ActionListener {
 		
 	}
 	
+	public PanSeat[] getPan() {
+		return pan;
+	}
+
+	public void setPan(PanSeat[] pan) {
+		this.pan = pan;
+	}
+
 	public void addLayout(){
 		
 		
