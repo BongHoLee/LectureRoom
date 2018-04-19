@@ -88,24 +88,26 @@ public class LoginView extends JFrame implements ActionListener {
 		tfCustId.setBounds(150, 96, 160, 30);
 		panel.add(tfCustId);
 		tfCustId.setOpaque(false);
-		tfCustId.setForeground(Color.WHITE);
-		tfCustId.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfCustId.setForeground(new Color(36, 205, 198));
+		tfCustId.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 
 		tfCustPw.setBounds(150, 223, 160, 30);
 		panel.add(tfCustPw);
 		tfCustPw.setOpaque(false);
-		tfCustPw.setForeground(Color.WHITE);
-		tfCustPw.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfCustPw.setForeground(new Color(36, 205, 198));
+		tfCustPw.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 
 		bCustSignIn.setBounds(70, 330, 100, 50);
 		panel.add(bCustSignIn);
-		bCustSignIn.setForeground(Color.WHITE);
+		bCustSignIn.setForeground(new Color(36, 205, 198));
+		bCustSignIn.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bCustSignIn.setFocusPainted(false);
 		bCustSignIn.setContentAreaFilled(false);
 
 		bCustLogin.setBounds(220, 330, 100, 50);
 		panel.add(bCustLogin);
-		bCustLogin.setForeground(Color.WHITE);
+		bCustLogin.setForeground(new Color(36, 205, 198));
+		bCustLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bCustLogin.setFocusPainted(false);
 		bCustLogin.setContentAreaFilled(false);
 

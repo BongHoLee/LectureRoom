@@ -21,8 +21,8 @@ import client.vo.Customer;
 
 public class SeatView extends JPanel implements ActionListener {
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
-	int posX, posY;
-	PanSeat[] pan = new PanSeat[30];
+	int posX, posY;	//	좌석패널의 좌표를 계산하기 위한 인트값
+	PanSeat[] pan = new PanSeat[30];	//	좌석패널 배열
 	
 	
 	
@@ -54,10 +54,13 @@ public class SeatView extends JPanel implements ActionListener {
 		Mypanel mp = new Mypanel();
 		mp.setBounds(0, 0, 1250, 740);
 		
+		//좌석패널이 들어갈 패널
 		JPanel seat30 = new JPanel();
 		seat30.setLayout(null);
 		seat30.setOpaque(false);
 		seat30.setBounds(115, 80, 1100, 600);
+		
+		//좌석패널의 좌표값을 계산해주기 위한 반복문
 		for (int seat = 0; seat < 30; seat++) {
 		    pan[seat] = new PanSeat(seat + 1);
 		    if (seat % 6 == 0 && seat != 0) {
@@ -73,8 +76,8 @@ public class SeatView extends JPanel implements ActionListener {
 		    seat30.add(pan[seat]);
 		}
 		
-		panel.add(mp, 1);
-		panel.add(seat30, 0);
+		panel.add(mp, 1);	//	레이어드판에 이미지패널 붙여줌
+		panel.add(seat30, 0);	//	레이어드판에 좌석패널 붙여줌
 		add(panel);
 		setVisible(true);
 		

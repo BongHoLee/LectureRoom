@@ -4,7 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 public class MainView extends JFrame {
-	SeatView sv;
+	SeatView seatV;
+	StockView stockV;
 	
 	public MainView(){
 		addLayout();
@@ -12,8 +13,8 @@ public class MainView extends JFrame {
 	
 	public void addLayout(){
 		JTabbedPane  pane = new JTabbedPane();
-		sv = new SeatView();
-
+		seatV = new SeatView();
+		stockV = new StockView();
 		
 
 		// 화면크기지정
@@ -21,7 +22,8 @@ public class MainView extends JFrame {
 		setSize(1270,765);
 		setLocation(0, 0);
 		setVisible( true );
-		pane.addTab("좌석관리", sv);
+		pane.addTab("좌석관리", seatV);
+		pane.addTab("재고관리", stockV);
 		
 		
 		

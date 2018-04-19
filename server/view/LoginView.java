@@ -86,18 +86,19 @@ public class LoginView extends JFrame implements ActionListener{
 		tfManId.setBounds(150, 96, 160, 30);
 		panel.add(tfManId);
 		tfManId.setOpaque(false);
-		tfManId.setForeground(Color.WHITE);
-		tfManId.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfManId.setForeground(new Color(36, 205, 198));
+		tfManId.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		
 		tfManPw.setBounds(150, 223, 160, 30);
 		panel.add(tfManPw);
 		tfManPw.setOpaque(false);
-		tfManPw.setForeground(Color.WHITE);
-		tfManPw.setBorder(javax.swing.BorderFactory.createLineBorder(Color.DARK_GRAY));
+		tfManPw.setForeground(new Color(36, 205, 198));
+		tfManPw.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		
 		bManLogin.setBounds(105, 330, 200, 50);
 		panel.add(bManLogin);
-		bManLogin.setForeground(Color.WHITE);
+		bManLogin.setForeground(new Color(36, 205, 198));
+		bManLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
         bManLogin.setFocusPainted(false);
         bManLogin.setContentAreaFilled(false);
 		
