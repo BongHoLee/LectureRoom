@@ -4,19 +4,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.HashMap;
 
+import server.view.PanSeat;
 import server.view.SeatView;
 
 
 //클라이언트의 접속을 대기하는 스레드
 public class ServerSc implements Runnable{
-	
+	HashMap<String, PanSeat> linkToClient; 			//클라이언트의 IP와 좌석객체를 연결
 	ServerSocket serverSocket;							//클라이언트와의 통신을 위한 서버 소켓
 	Socket connection;										//클라이언트 접속시 생성되는 소켓
 	SeatView sv;												//SeatView를 넘겨받음
+	PanSeat[] panArr;
 	
-	public ServerSc(){
+	public ServerSc(SeatView sv){
 		try {
+			this.sv = sv;
+			panArr = sv.getPan();												//좌석 객체배열 가져오기
+			linkToClient = new HashMap();
 			serverSocket = new ServerSocket(6789);
 			new Thread(this).start();										//소켓 전달 후 실행
 				
@@ -26,13 +32,22 @@ public class ServerSc implements Runnable{
 					
 	}
 	
+	//IP와 좌석을 HashMap으로 연결
+	public void setHashMap(){
+		for(int i=51, x=0; i<81; i++, x++){
+			this.linkToClient.put("/70.12.115."+i, panArr[x]);
+		}
+	}
+
+	
 	@Override
 	public void run() {				//스레드의 메인 실행 부
 		while(true){
 			try{
 				connection = serverSocket.accept();							//클라이언트의 접속을 대기
-				ScWithClient sc = new ScWithClient(connection);		//클라이언트 접속시 
-																					//실행 스레드에게 소켓 전달
+				PanSeat pan = this.linkToClient.get(connection.getInetAddress());			//IP와 연관된 자리 붙여주기
+				ScWithClient sc = new ScWithClient(connection, pan);		//클라이언트 접속시 
+																					//실행 스레드에게 소켓, 좌석 객체 전달
 			}catch(Exception ex){
 				System.out.println("일단 뭔가 잘못된거긴 함");
 			}

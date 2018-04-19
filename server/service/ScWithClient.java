@@ -4,13 +4,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
+import server.view.PanSeat;
+
 //클라이언트가 접속시 호출되어서 실행되는 스레드
 public class ScWithClient implements Runnable {
 	Socket connection;										//클라이언트와 연결시 생성되는 소켓
 	ObjectOutputStream output;							//소켓 통신시 메시지를 전달할 스트림 객체
 	ObjectInputStream input;								//소켓 통신시 메시지를 전달받을 스트림 객체
 	
-	public ScWithClient(Socket socket) {
+	public ScWithClient(Socket socket, PanSeat pan) {
 		this.connection = socket;
 		new Thread(this).start(); 							//클라이언트와 연결된 소켓을 넘겨받고 run
 	}

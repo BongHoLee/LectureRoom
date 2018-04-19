@@ -15,11 +15,12 @@ import javax.swing.JPanel;
  
 public class PanSeat extends JPanel {
     private BufferedImage img = null;
-    JLabel[] label = new JLabel[4];
+    JLabel[] label;
     private int numSeat;
     
      
     public PanSeat(int numSeat) {
+    	label = new JLabel[4];
         this.numSeat = numSeat;
         img("gameOff");
         setLayout(null);
