@@ -63,7 +63,23 @@ public class PanSeat extends JPanel {
         setFocusable(true);
     }
   
-    class InnerPanel extends JPanel {
+    public JLabel[] getLabel() {
+		return label;
+	}
+
+	public void setLabel(JLabel[] label) {
+		this.label = label;
+	}
+
+	public int getNumSeat() {
+		return numSeat;
+	}
+
+	public void setNumSeat(int numSeat) {
+		this.numSeat = numSeat;
+	}
+
+	class InnerPanel extends JPanel {
         private static final long serialVersionUID = 1547128190348749556L;
         public void paint(Graphics g) {
             super.paint(g);
