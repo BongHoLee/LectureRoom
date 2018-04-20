@@ -43,7 +43,7 @@ public class ServerSc implements Runnable{
 		this.pcinfo = new PcInfo();
 		pcinfo.setPc_ip(connection.getInetAddress().toString());
 		pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress()));
-		this.pan = panArr[pcinfo.getPc_no()];
+		this.pan = panArr[pcinfo.getPc_no()-1];
 		System.out.println(this.pan.getNumSeat());
 	}
 	
