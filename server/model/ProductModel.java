@@ -16,6 +16,18 @@ public class ProductModel {
 		con = DBCon.getConnection();
 	}
 	
+	public int modifyStockByNo(int no, int stock) throws SQLException{
+		String sql = "UPDATE product SET pro_stock = ? WHERE pro_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, stock);
+		ps.setInt(2, no);
+		int result = ps.executeUpdate();
+		
+		ps.close();
+		
+		return result;
+	}
+	
 	public Product searchByNo(int no) throws SQLException{
 		Product pro = new Product();
 		String sql = "SELECT pro_no, pro_name, pro_stock, pro_price FROM product WHERE pro_no = ?";

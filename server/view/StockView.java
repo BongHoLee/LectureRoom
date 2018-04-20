@@ -45,6 +45,8 @@ public class StockView extends JPanel implements ActionListener {
 	
 	ProductModel pm;
 	
+	String menu = "";
+	
 	
 	public StockView() {
 		connectDB();
@@ -204,8 +206,7 @@ public class StockView extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				int row = tbStockList.getSelectedRow();
 				int col = 0;
-				String data = (String)tbStockList.getValueAt(row, col);
-				int no = Integer.parseInt(data);
+				int no = (int)tbStockList.getValueAt(row, col);
 				JOptionPane.showMessageDialog(null, no);
 
 				try {
@@ -226,6 +227,7 @@ public class StockView extends JPanel implements ActionListener {
 		Object evt = e.getSource();
 		if(evt == bModify){
 			JOptionPane.showMessageDialog(null, "재고 수정");
+			modifyStock(Integer.parseInt(tfMenuNo.getText()), Integer.parseInt(tfStock.getText()));
 		}else if(evt == bCancel){
 			JOptionPane.showMessageDialog(null, "취소");
 			tfMenuNo.setText("");
@@ -233,11 +235,14 @@ public class StockView extends JPanel implements ActionListener {
 			tfStock.setText("");
 		}else if(evt == cMenu){
 			if(cMenu.getSelectedItem().toString().equals("전체")){
+				menu = "";
 				searchTable();
 			}else if(cMenu.getSelectedItem().toString().equals("음식")){
-				searchTable("음식");
+				menu = "음식";
+				searchTable(menu);
 			}else if(cMenu.getSelectedItem().toString().equals("음료")){
-				searchTable("음료");
+				menu = "음료";
+				searchTable(menu);
 			}
 		}
 	}
@@ -334,6 +339,30 @@ public class StockView extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public void modifyStock(int no, int stock){
+		try {
+			int result = pm.modifyStockByNo(no, stock);
+			if(result == 0){
+				JOptionPane.showMessageDialog(null, "수정실패");
+			}else if(menu.equals("")){
+				tbModelStock.data = pm.searchTable();
+				tbStockList.setModel(tbModelStock);
+				tbModelStock.fireTableDataChanged();
+			}else if(menu.equals("음식")){
+				tbModelStock.data = pm.searchTable(100);
+				tbStockList.setModel(tbModelStock);
+				tbModelStock.fireTableDataChanged();
+			}else if(menu.equals("음료")){
+				tbModelStock.data = pm.searchTable(200);
+				tbStockList.setModel(tbModelStock);
+				tbModelStock.fireTableDataChanged();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

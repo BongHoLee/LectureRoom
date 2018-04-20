@@ -8,15 +8,20 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import server.model.ProductModel;
+import server.model.SalesModel;
 
 public class SalesView extends JPanel implements ActionListener{
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
@@ -26,11 +31,23 @@ public class SalesView extends JPanel implements ActionListener{
 	JTextField tfDailySales, tfMonthlySales, tfTotalSales;
 	JComboBox cDate;
 	
+	SalesModel sm;
+	
 	
 	public SalesView() {
+		connectDB();
 		addLayout();
 		eventProc();
 		
+	}
+	
+	public void connectDB(){
+		try {
+			sm = new SalesModel();
+			System.out.println("매출관리 연결 성공");
+		} catch (Exception e) {
+			System.out.println("매출관리 연결 실패 : " + e.getMessage());
+		}
 	}
 	
 	public void addLayout(){
@@ -41,7 +58,7 @@ public class SalesView extends JPanel implements ActionListener{
 		lMonthlySales = new JLabel("월별매출");
 		lTotalSales = new JLabel("총매출");
 		
-		cDate = new JComboBox<>();
+		cDate = new JComboBox<>(ComboInput());
 		tfDailySales = new JTextField();
 		tfMonthlySales = new JTextField();
 		tfTotalSales = new JTextField();
@@ -149,6 +166,19 @@ public class SalesView extends JPanel implements ActionListener{
 		add(panel);
 		setVisible(true);
 		
+	}
+	
+	public Vector ComboInput(){
+		Vector comboData = new Vector();
+		try {
+			comboData = sm.comboInputByDate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return comboData;
 	}
 	
 	
