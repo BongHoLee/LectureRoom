@@ -91,9 +91,11 @@ public class PanSeat extends JPanel {
 		if(status == 1){
 			img("gameOn");
 			label[0].setText((numSeat) + ". 사용중");
+			label[0].setForeground(Color.RED);
 		}else if(status == 0){
 			img("gameOff");
 			label[0].setText((numSeat) + ". 사용중");
+			label[0].setForeground(new Color(36, 205, 198));
 		}
 	}
  
