@@ -5,11 +5,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 
-public class ClientSc {
+import client.view.*;
+
+public class ClientMain {
 	String serverIP;
-	 
-	 
-	public static void main(String[] args) throws InterruptedException {
+	MainView mv;				//메인 뷰를 띄우기 위한 메인뷰 객체
+	
+	Socket connection;
+	ObjectOutputStream output;
+	ObjectInputStream input;
+	
+	public ClientMain(){}
+	
+	public ClientMain(String c_id){ 
+		mv = new MainView();						//클라이언트 메인 뷰를 띄운다.
+		
 		try {
 			Socket connection = new Socket("70.12.115.73",6789);
 			ObjectOutputStream output = new ObjectOutputStream(connection.getOutputStream());
@@ -17,7 +27,7 @@ public class ClientSc {
 			ObjectInputStream input = new ObjectInputStream(connection.getInputStream());
 			
 			System.out.println("클라이언트 입니다. 스트림이 연결되었네요");
-			output.writeObject("Lee");
+			output.writeObject(c_id);
 			output.flush();
 			System.out.println("클라이언트 : C_id 전송 완료");
 			System.out.println(connection.getInetAddress().toString());
@@ -28,6 +38,12 @@ public class ClientSc {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
+	
+
 }

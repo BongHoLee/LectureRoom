@@ -19,15 +19,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import client.service.ClientMain;
 import client.service.LoginModel;
 import client.vo.Customer;
 
 public class LoginView extends JFrame implements ActionListener {
-
+	ClientMain cm;			//로그인 성공시 메인프로그램 실행
+	
 	JTextField tfCustId; // 고객 아이디, 패스워드 입력 필드
 	JPasswordField tfCustPw;
 	JButton bCustSignIn, bCustLogin; // 고객 회원가입, 로그인 버튼
-
+	
 	JLabel LCustId;
 	JLabel LCustPw;
 
@@ -60,8 +62,6 @@ public class LoginView extends JFrame implements ActionListener {
 		bCustLogin = new JButton("로 그 인");
 		bCustSignIn = new JButton("회 원 가 입");
 
-		// LCustId = new JLabel("ID");
-		// LCustPw = new JLabel("Password");
 
 		try {
 			img = ImageIO.read(new File("src/img/Login.png"));
@@ -157,6 +157,8 @@ public class LoginView extends JFrame implements ActionListener {
 		}
 		else if (status == 2) // ID와 PW가 일치하는경우.
 			JOptionPane.showMessageDialog(null, "로그인 성공!");
+			cm = new ClientMain(cus.getC_id());
+			
 	}
 
 	// 회원가입 버튼이 눌렸을 때 실행되는 메소드

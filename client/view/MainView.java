@@ -9,6 +9,7 @@ public class MainView extends JFrame {
 	MenuTabView MenuV;
 	OrderView OrderV;
 	
+			
 	public MainView(){
 		addLayout();
 	}
@@ -46,7 +47,5 @@ public class MainView extends JFrame {
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
 	
-	public static void main(String[] args) {
-		MainView mv = new MainView();
-	}
+
 }
