@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +29,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import server.model.ProductModel;
+import server.vo.Product;
 
 public class StockView extends JPanel implements ActionListener {
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
@@ -190,12 +194,52 @@ public class StockView extends JPanel implements ActionListener {
 	
 	
 	public void eventProc(){
+		bModify.addActionListener(this);
+		bCancel.addActionListener(this);
+		cMenu.addActionListener(this);
 		
+		tbStockList.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = tbStockList.getSelectedRow();
+				int col = 0;
+				String data = (String)tbStockList.getValueAt(row, col);
+				int no = Integer.parseInt(data);
+				JOptionPane.showMessageDialog(null, no);
+
+				try {
+					Product pro = pm.searchByNo(no);
+					tfMenuNo.setText(String.valueOf(pro.getPro_no()));
+					tfMenuName.setText(pro.getPro_name());
+					tfStock.setText(String.valueOf(pro.getPro_stock()));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		Object evt = e.getSource();
+		if(evt == bModify){
+			JOptionPane.showMessageDialog(null, "재고 수정");
+		}else if(evt == bCancel){
+			JOptionPane.showMessageDialog(null, "취소");
+			tfMenuNo.setText("");
+			tfMenuName.setText("");
+			tfStock.setText("");
+		}else if(evt == cMenu){
+			if(cMenu.getSelectedItem().toString().equals("전체")){
+				searchTable();
+			}else if(cMenu.getSelectedItem().toString().equals("음식")){
+				searchTable("음식");
+			}else if(cMenu.getSelectedItem().toString().equals("음료")){
+				searchTable("음료");
+			}
+		}
 	}
 	
 	// 이미지가 들어갈 패널을 생성하는 이너클래스
@@ -268,6 +312,28 @@ public class StockView extends JPanel implements ActionListener {
 			tbModelStock.fireTableDataChanged();
 		} catch (SQLException e) {
 			System.out.println("테이블 실패 : " + e.getMessage());
+		}
+	}
+	
+	public void searchTable(String menu){
+		if(menu.equals("음식")){
+			try {
+				tbModelStock.data = pm.searchTable(100);
+				tbStockList.setModel(tbModelStock);
+				tbModelStock.fireTableDataChanged();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(menu.equals("음료")){
+			try {
+				tbModelStock.data = pm.searchTable(200);
+				tbStockList.setModel(tbModelStock);
+				tbModelStock.fireTableDataChanged();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

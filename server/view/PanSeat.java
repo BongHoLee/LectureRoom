@@ -86,6 +86,16 @@ public class PanSeat extends JPanel {
             g.drawImage(img, 0, 0, null);
         }
     }
+	
+	public void setSeatInfo(int status){
+		if(status == 1){
+			img("gameOn");
+			label[0] = new JLabel((numSeat) + ". 사용중");
+		}else if(status == 0){
+			img("gameOff");
+			label[0] = new JLabel((numSeat) + ". 빈자리");
+		}
+	}
  
     public void img(String filename) {
         // 이미지 받아오기 - gameOn, gameOff (로그인, 로그오프)
