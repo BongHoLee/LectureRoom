@@ -124,7 +124,7 @@ public class OrderView extends JPanel implements ActionListener {
 			//프로토콜 설정
 			ClientProtocol protocol = new ClientProtocol();		
 			System.out.println("주문 목록 크기 : " +orderList.size());
-			protocol.setData(orderList);
+			protocol.setData((ArrayList)orderList);
 			protocol.setState(ClientProtocol.Order_Send);
 			System.out.println("프로토콜에 들어간 객체 : " +protocol.getData());
 			System.out.println("프로토콜의 상태 : " +protocol.getState());

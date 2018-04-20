@@ -33,7 +33,8 @@ public class ScWithServer implements Runnable{
 			 ClientProtocol proto = obj;
 			 System.out.println("sendProtocol이 받은 프로토콜 데이터 : " +proto.getData());
 			 System.out.println("sendProtocol이 받은 프로토콜 상태 : " + proto.getState());
-			output.writeObject(proto);
+			 proto.setData((String)"hihi");
+			output.writeObject((ClientProtocol)proto);
 			output.flush();
 			System.out.println("클라이언트 : 주문 프로토콜 전송 완료");
 		} catch (Exception e) {
