@@ -90,10 +90,10 @@ public class PanSeat extends JPanel {
 	public void setSeatInfo(int status){
 		if(status == 1){
 			img("gameOn");
-			label[0] = new JLabel((numSeat) + ". 사용중");
+			label[0].setText((numSeat) + ". 사용중");
 		}else if(status == 0){
 			img("gameOff");
-			label[0] = new JLabel((numSeat) + ". 빈자리");
+			label[0].setText((numSeat) + ". 사용중");
 		}
 	}
  
