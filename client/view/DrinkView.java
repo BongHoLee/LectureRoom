@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -16,24 +17,36 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import client.view.FoodView.Mypanel;
+import client.service.OrderModel;
 
 public class DrinkView extends JPanel implements ActionListener {
 	BufferedImage img = null;
 	JButton bDrink_1, bDrink_2, bDrink_3, bDrink_4;
 	JLabel lDrink_1, lDrink_2, lDrink_3, lDrink_4;
 	
+	OrderModel om;
+	
 	
 	public DrinkView(){
+		connectDB();
 		addLayout();
 		eventProc();
 	}
 	
+	public void connectDB(){
+		try {
+			om = new OrderModel();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void addLayout(){
-		bDrink_1 = new JButton("음료1");
-		bDrink_2 = new JButton("음료2");
-		bDrink_3 = new JButton("음료3");
-		bDrink_4 = new JButton("음료4");
+		bDrink_1 = new JButton("커피");
+		bDrink_2 = new JButton("콜라");
+		bDrink_3 = new JButton("사이다");
+		bDrink_4 = new JButton("환타");
 		
 		lDrink_1 = new JLabel("음료1");
 		lDrink_2 = new JLabel("음료2");
@@ -138,7 +151,49 @@ public class DrinkView extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bDrink_1){
-			JOptionPane.showMessageDialog(null, "음료1");
+			int pro_no = 201;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(evt == bDrink_2){
+			int pro_no = 202;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(evt == bDrink_3){
+			int pro_no = 203;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(evt == bDrink_4){
+			int pro_no = 204;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

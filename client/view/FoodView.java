@@ -161,7 +161,39 @@ public class FoodView extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+		}else if(evt == bFood_2){
+			int pro_no = 103;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(evt == bFood_3){
+			int pro_no = 104;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if(evt == bFood_4){
+			int pro_no = 105;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

@@ -120,14 +120,15 @@ public class LoginView extends JFrame implements ActionListener {
 	public void eventProc() {
 		bCustLogin.addActionListener(this);
 		bCustSignIn.addActionListener(this);
+		tfCustPw.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
-		if (evt == bCustLogin) {
+		if (evt == bCustLogin || evt == tfCustPw) { // 로그인 버튼 클릭 및 패스워드 텍스트필드 엔터
 			try {
-				login();
+				login(); // 로그인 메소드 실행
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
