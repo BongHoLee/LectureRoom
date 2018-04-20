@@ -112,12 +112,13 @@ public class LoginView extends JFrame implements ActionListener{
 	
 	public void eventProc(){
 		bManLogin.addActionListener(this);
+		tfManPw.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
-		if(evt == bManLogin){
+		if(evt == bManLogin || evt == tfManPw){
 			try {
 				login();
 			} catch (SQLException e1) {
@@ -147,6 +148,7 @@ public class LoginView extends JFrame implements ActionListener{
 		}else if(status == 2){
 			JOptionPane.showMessageDialog(null, "로그인 성공!");
 			sm = new ServerMain();			//로그인 성공시 ServerMain 구동
+			dispose();
 		}
 		
 		
