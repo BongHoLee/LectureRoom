@@ -50,7 +50,6 @@ public class PcInfoModel {
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, pcinfo.getPc_no());
-			System.out.println("FLAG 갱신 완료");
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

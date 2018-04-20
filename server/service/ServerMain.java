@@ -19,7 +19,7 @@ public class ServerMain {
 		
 		//멀티 스레드로 클라이언트 접속 대기
 		Runnable sc = new ServerSc(sv);						//sv를 여기로 넘겨줘야하나?
-		System.out.println("메인스레드 종료");
+		//System.out.println("메인스레드 종료");
 	}
 
 }

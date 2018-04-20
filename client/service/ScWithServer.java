@@ -9,9 +9,9 @@ import java.net.UnknownHostException;
 import client.vo.*;
 
 public class ScWithServer implements Runnable{
-	Customer cus;											//클라이언트 정보를 담기 위한 vo객체
+	public Customer cus;											//클라이언트 정보를 담기 위한 vo객체
 	Socket connection;
-	ObjectOutputStream output;
+	private static ObjectOutputStream output;
 	ObjectInputStream input;
 
 	 public ScWithServer(String c_id) {
@@ -26,6 +26,36 @@ public class ScWithServer implements Runnable{
 		}
 		 new Thread(this).start();
 	 }
+	 
+	 //서버에게 프로토콜을 전송하는 메소드(주문, 채팅, 종료)
+	 public static void sendProtocol(ClientProtocol obj){
+		 try {
+			 ClientProtocol proto = obj;
+			 System.out.println("sendProtocol이 받은 프로토콜 데이터 : " +proto.getData());
+			 System.out.println("sendProtocol이 받은 프로토콜 상태 : " + proto.getState());
+			output.writeObject(proto);
+			output.flush();
+			System.out.println("클라이언트 : 주문 프로토콜 전송 완료");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 }
+	 
+	 //서버로부터 메시지를 받는 메소드
+	 public void whileChatting(){
+		 do{
+			 try {
+				String message = (String) input.readObject();
+				System.out.println("서버로부터 "+message);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("클라이언트입니다. whileChatting에 문제가있어요");
+				System.exit(0);
+			}
+		 }while(true);
+	 }
 	@Override
 	public void run() {
 		try {
@@ -33,20 +63,14 @@ public class ScWithServer implements Runnable{
 			System.out.println("클라이언트 입니다. 스트림이 연결되었네요");
 			output.writeObject(cus.getC_id());											//서버에 접속자 c_id를 전송
 			output.flush();
-			System.out.println("클라이언트 : C_id 전송 완료");
-			System.out.println(connection.getInetAddress().toString());
-			Thread.sleep(100000);
+			whileChatting();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		} 
 	}
 
 }

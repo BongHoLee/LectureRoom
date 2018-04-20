@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import client.vo.Order;
 import server.model.DBCon;
 
 public class OrderModel {
@@ -12,6 +13,18 @@ public class OrderModel {
 	
 	public OrderModel() throws SQLException{
 		con = DBCon.getConnection();
+	}
+	
+	public void selectUseNo(Order order) throws SQLException{
+		String sql = "SELECT use_no FROM use_pc WHERE c_id=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, ClientMain.c_id);								//c_id를 이용해 USE_PC테이블 참조
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()){
+			order.setUse_no(rs.getInt("use_no"));					//order 객체에 use_no을 세팅
+		}
+		rs.close();
+		ps.close();
 	}
 	
 	public boolean ChooseMenu(int pro_no) throws SQLException{
