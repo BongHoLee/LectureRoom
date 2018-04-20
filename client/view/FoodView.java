@@ -8,34 +8,45 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import client.view.UseInfoView.Mypanel;
+import client.service.OrderModel;
 
 public class FoodView extends JPanel implements ActionListener {
 	BufferedImage img = null;
 	JButton bFood_1, bFood_2, bFood_3, bFood_4;
 	JLabel lFood_1, lFood_2, lFood_3, lFood_4;
 	
+	OrderModel om;
+	
 	
 	public FoodView(){
+		connectDB();
 		addLayout();
 		eventProc();
 	}
 	
+	public void connectDB(){
+		try {
+			om = new OrderModel();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void addLayout(){
-		bFood_1 = new JButton("음식1");
-		bFood_2 = new JButton("음식2");
-		bFood_3 = new JButton("음식3");
-		bFood_4 = new JButton("음식4");
+		bFood_1 = new JButton("라면");
+		bFood_2 = new JButton("볶음밥");
+		bFood_3 = new JButton("햄버거");
+		bFood_4 = new JButton("핫도그");
 		
 		lFood_1 = new JLabel("음식1");
 		lFood_2 = new JLabel("음식2");
@@ -140,7 +151,17 @@ public class FoodView extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bFood_1){
-			JOptionPane.showMessageDialog(null, "음식1");
+			int pro_no = 102;
+			try {
+				boolean check = om.ChooseMenu(pro_no);
+				if(check == false){
+					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
 		
 	}
