@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -20,8 +19,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import server.model.ProductModel;
 import server.model.SalesModel;
+import server.vo.Sales;
 
 public class SalesView extends JPanel implements ActionListener{
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
@@ -38,6 +37,7 @@ public class SalesView extends JPanel implements ActionListener{
 		connectDB();
 		addLayout();
 		eventProc();
+		defaultTfSet();
 		
 	}
 	
@@ -59,6 +59,8 @@ public class SalesView extends JPanel implements ActionListener{
 		lTotalSales = new JLabel("총매출");
 		
 		cDate = new JComboBox<>(ComboInput());
+		cDate.setSelectedItem(ComboInput().lastElement());
+		
 		tfDailySales = new JTextField();
 		tfMonthlySales = new JTextField();
 		tfTotalSales = new JTextField();
@@ -183,12 +185,59 @@ public class SalesView extends JPanel implements ActionListener{
 	
 	
 	public void eventProc(){
-		
+		cDate.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		Object evt = e.getSource();
+		if(evt == cDate){
+			Sales sal = searchDate(cDate.getSelectedItem().toString());
+			if(cDate.getSelectedItem().toString().equals(String.valueOf(sal.getSales_date()))){
+				tfDailySales.setText(String.valueOf(sal.getSales_daily()));
+				tfMonthlySales.setText(String.valueOf(searchMonthlySales(cDate.getSelectedItem().toString())));
+			}
+		}
+	}
+	
+	//콤보박스에서 선택한 날짜의 매출정보를 받아오는 메소드
+	public Sales searchDate(String date){
+		Sales sal = new Sales();
+		try {
+			sal = sm.searchByDate(date);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sal;
+	}
+	
+	// 처음 실행할 때 가장 최근 날짜의 일일매출, 월별매출, 총매출을 화면에 출력하는 메소드
+	public void defaultTfSet(){
+		Sales sal = new Sales();
+		String date = ComboInput().lastElement().toString();
+		try {
+			sal = sm.searchByDate(date);
+			tfDailySales.setText(String.valueOf(sal.getSales_daily()));
+			tfMonthlySales.setText(String.valueOf(searchMonthlySales(date)));
+			tfTotalSales.setText(String.valueOf(sal.getSales_total()));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	// 선택된 날짜와 같은 달의 일일매출을 다 더한 월별매출을 구하는 메소드
+	public int searchMonthlySales(String date){
+		String month = date.substring(5, 7);
+		int monthly = 0;
+		try {
+			monthly = sm.searchMonthlySalesByDate(month);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return monthly;
 	}
 	
 	// 이미지가 들어갈 패널을 생성하는 이너클래스
