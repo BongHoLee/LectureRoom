@@ -6,6 +6,9 @@ public class Customer {
 	private String c_tel;					//고객 tel
 	
 	public Customer() {}
+	public Customer(String c_id){
+		this.c_id = c_id;
+	}
 	public Customer(String c_id, String c_pw) {
 		super();
 		this.c_id = c_id;

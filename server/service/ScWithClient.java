@@ -30,7 +30,7 @@ public class ScWithClient implements Runnable {
 		this.usepc = new UsePc();						//USE_PC의 정보를 담는 VO 객체
 		this.usepcmodel = new UsePcModel();			//USE_PC의 데이터를 처리할 모델
 		
-		this.pan = pan;
+		this.pan = pan;										//넘겨받은 좌석의 객체
 		this.connection = socket;
 		
 		new Thread(this).start(); 							//클라이언트와 연결된 소켓을 넘겨받고 run
@@ -66,6 +66,11 @@ public class ScWithClient implements Runnable {
 		
 	}
 	
+	public void updateSeat(){
+		pan.setSeatInfo(1);
+		System.out.println("좌석 바뀌었는지 확인");
+	}
+	
 	public void closeSoc(){}
 	
 	
@@ -80,6 +85,7 @@ public class ScWithClient implements Runnable {
 			callPcUp();									//PC_NO을 받아오기 위해서 호출
 			updatePcFlag();  							//PC테이블의 Flag를 1로 갱신
 			insertUsePc(); 								//USE_PC 테이블에 INSERT
+			updateSeat();
 			Thread.sleep(10000);
 			System.out.println("종료가 되었습니다.");
 		} catch (InterruptedException e) {

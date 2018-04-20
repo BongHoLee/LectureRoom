@@ -30,10 +30,8 @@ public class MainView extends JFrame {
 		p_up.add(UseInfoV);
 		this.add(p_up);
 		
-		
 		MenuV.setBounds(0, 200, 400, 200);
 		this.add(MenuV);
-		
 		
 		JPanel p_bottom = new JPanel();
 		p_bottom.setLayout(null);
@@ -41,11 +39,9 @@ public class MainView extends JFrame {
 		p_bottom.add(OrderV);
 		this.add(p_bottom);
 		
-		
-		
-		
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 	}
+
 	
 	
 

@@ -15,8 +15,8 @@ import javax.swing.JPanel;
  
 public class PanSeat extends JPanel {
     private BufferedImage img = null;
-    JLabel[] label;
-    private int numSeat;
+    JLabel[] label;										//좌석에 붙는 텍스트
+    private int numSeat;								// 좌석 번호
     
      
     public PanSeat(int numSeat) {
