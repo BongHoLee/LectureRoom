@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -24,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import server.model.ProductModel;
+
 public class StockView extends JPanel implements ActionListener {
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
 	JLabel lStockManage;
@@ -36,15 +39,20 @@ public class StockView extends JPanel implements ActionListener {
 	JTextField tfMenuNo, tfMenuName, tfStock;
 	JButton bModify, bCancel;
 	
+	ProductModel pm;
+	
 	
 	public StockView() {
+		connectDB();
 		addLayout();
 		eventProc();
+		searchTable();
 	}
 	
 	public void addLayout(){
 		lStockManage = new JLabel("재고 관리");
-		cMenu = new JComboBox<>();
+		String[] strMenu = {"전체", "음식", "음료"};
+		cMenu = new JComboBox<>(strMenu);
 		
 		tbModelStock = new StockTableModel();
 		tbStockList = new JTable(tbModelStock);
@@ -152,9 +160,10 @@ public class StockView extends JPanel implements ActionListener {
 		
 		
 		tbStockList.setBounds(0, 0, 500, 500);
-		tbStockList.setOpaque(false);
+		tbStockList.setOpaque(true);
+		tbStockList.setBackground(Color.BLACK);
 		tbStockList.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
-		tbStockList.setFont(new Font("배달의민족 한나", 1, 15));
+		tbStockList.setFont(new Font("배달의민족 한나", 1, 17));
 		tbStockList.setForeground(new Color(36, 205, 198));
 		tbStockList.getTableHeader().setDefaultRenderer(new SimpleHeaderRenderer());
 	
@@ -241,6 +250,24 @@ public class StockView extends JPanel implements ActionListener {
 	        setText(value.toString());
 	        return this;
 	    }
-	 
+	}
+	
+	public void connectDB(){
+		try {
+			pm = new ProductModel();
+			System.out.println("재고관리 연결 성공");
+		} catch (Exception e) {
+			System.out.println("재고관리 연결 실패 : " + e.getMessage());
+		}
+	}
+	
+	public void searchTable(){
+		try {
+			tbModelStock.data = pm.searchTable();
+			tbStockList.setModel(tbModelStock);
+			tbModelStock.fireTableDataChanged();
+		} catch (SQLException e) {
+			System.out.println("테이블 실패 : " + e.getMessage());
+		}
 	}
 }

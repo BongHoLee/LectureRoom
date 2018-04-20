@@ -155,9 +155,11 @@ public class LoginView extends JFrame implements ActionListener {
 			tfCustPw.setText("");
 			JOptionPane.showMessageDialog(null, "PW가 틀렸습니다.");
 		}
-		else if (status == 2) // ID와 PW가 일치하는경우.
+		else if (status == 2){ // ID와 PW가 일치하는경우.
 			JOptionPane.showMessageDialog(null, "로그인 성공!");
+			dispose();
 			cm = new ClientMain(cus.getC_id());
+		}
 			
 	}
 
