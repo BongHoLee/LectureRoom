@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import protocol.*;
+import client.service.OrderModel;
 import client.service.ScWithServer;
 import client.view.UseInfoView.Mypanel;
 
@@ -33,8 +35,11 @@ public class OrderView extends JPanel implements ActionListener {
 	JTextField tfTotalPrice;
 	JButton bCharge, bCancel;
 	
+	OrderModel om;
 	
-	public OrderView(){
+	
+	public OrderView() throws SQLException{
+		om = new OrderModel();
 		addLayout();
 		eventProc();
 	}
@@ -134,7 +139,13 @@ public class OrderView extends JPanel implements ActionListener {
 			ScWithServer.sendProtocol(protocol);				//스레드의 Protocol 전달 메소드 실행
 			orderList.clear();
 			
+													//취소 버튼을 눌렀을시 주문목록에 있는 수만큼 다시 update
 		}else if(evt == bCancel){				//취소 버튼을 눌렀을시 주문목록 지워줌
+			try {
+				om.cancelOrder(orderList);	
+				System.out.println("주문 취소 완료.");
+			} catch (SQLException e1) {
+			}
 			orderList.clear();
 		}
 		

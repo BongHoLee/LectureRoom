@@ -79,18 +79,22 @@ public class ScWithClient implements Runnable {
 		pan.setSeatInfo(1);
 		System.out.println("좌석 바뀌었는지 확인");
 	}
-
+	
 	// 클라이언트가 보낸 프로토콜을 전송받는다.
 	public void receiveProtocol() {
 		while (true) {
 			try {
-				
+				//클라이언트가 보낸 프로토콜을 받도록 대기
 				ClientProtocol protocol = (ClientProtocol) input.readObject();
-				System.out.println("클라이언트가 보낸 프로토콜 객체 : " +protocol.getData());
-				//Order or = (Order)protocol.getData();
-				ArrayList list = (ArrayList)protocol.getData();
-				Order or = (Order)list.get(0);
-				System.out.println("서버입니다. 클라이언트가 보낸 Order객체의 Pro_no: " + or.getPro_no());
+				
+				//1. 주문시 order_pro 테이블을 갱신하는 OrderTh 스레드 호출 및 실행
+				if(protocol.getState() == protocol.Order_Send){
+					ArrayList<Order> list = (ArrayList)protocol.getData();
+					Runnable r = new OrderTh(list);					
+				}
+				//2. 채팅 메시지일시
+				
+				//3. 종료 메시지일시.
 			System.out.println("서버입니다. 클라이언트가 보낸 프로토콜을 받았어요 "+ protocol.getState());
 				//System.out.println("서버입니다. 클라이언트가 보낸 프로토콜입니다 : + " +protocol);
 			} catch (Exception  e) {
@@ -100,6 +104,8 @@ public class ScWithClient implements Runnable {
 			}
 		}
 	}
+	
+	
 
 	public void closeSoc() {
 	}

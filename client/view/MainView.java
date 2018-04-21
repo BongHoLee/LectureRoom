@@ -1,5 +1,7 @@
 package client.view;
 
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -15,9 +17,16 @@ public class MainView extends JFrame {
 	}
 	
 	public void addLayout(){
-		UseInfoV = new UseInfoView();
-		OrderV = new OrderView();
-		MenuV = new MenuTabView();
+		
+		try {
+			MenuV = new MenuTabView();
+			UseInfoV = new UseInfoView();
+			OrderV = new OrderView();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		setLayout(null);
 		setSize(415,735);

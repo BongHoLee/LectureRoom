@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import protocol.*;
 import server.model.DBCon;
@@ -47,10 +48,17 @@ public class OrderModel {
 				check = true;
 			}
 		}
-		
-		return check;
-		
-		
-		
+		return check;		
+	}
+	
+	//취소 버튼 클릭시 실행되는 메소드. orderList의 내용(Order객체)를 참조해서 테이블 갱신
+	public void cancelOrder(ArrayList<Order> list) throws SQLException{
+		for(Order order : list){
+			String sql = "UPDATE product SET pro_stock=pro_stock+1 WHERE pro_no=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, order.getPro_no());
+			ps.executeUpdate();
+			ps.close();
+		}
 	}
 }
