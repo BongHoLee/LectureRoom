@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import client.service.ClientProtocol;
+import protocol.*;
 import client.service.ScWithServer;
 import client.view.UseInfoView.Mypanel;
-import client.vo.Order;
+
 
 //
 public class OrderView extends JPanel implements ActionListener {
@@ -123,12 +123,16 @@ public class OrderView extends JPanel implements ActionListener {
 		if(evt == bCharge){						//결제 버튼 눌렀을시 orderList를 전송한다.
 			//프로토콜 설정
 			ClientProtocol protocol = new ClientProtocol();		
-			System.out.println("주문 목록 크기 : " +orderList.size());
-			protocol.setData((ArrayList)orderList);
+			ArrayList<Order> list = new ArrayList();
+			list.addAll(orderList);
+			//System.out.println("주문 목록 크기 : " +orderList.size());
+			Order or1 = new Order();
+			protocol.setData(list);
 			protocol.setState(ClientProtocol.Order_Send);
 			System.out.println("프로토콜에 들어간 객체 : " +protocol.getData());
 			System.out.println("프로토콜의 상태 : " +protocol.getState());
 			ScWithServer.sendProtocol(protocol);				//스레드의 Protocol 전달 메소드 실행
+			orderList.clear();
 			
 		}else if(evt == bCancel){				//취소 버튼을 눌렀을시 주문목록 지워줌
 			orderList.clear();

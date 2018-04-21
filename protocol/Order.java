@@ -1,4 +1,4 @@
-package server.vo;
+package protocol;
 
 import java.io.Serializable;
 

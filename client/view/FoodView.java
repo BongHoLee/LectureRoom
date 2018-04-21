@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import client.service.OrderModel;
-import client.vo.Order;
+import protocol.*;
 
 public class FoodView extends JPanel implements ActionListener {
 	

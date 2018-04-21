@@ -5,7 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
+import protocol.*;
 import client.vo.*;
 
 public class ScWithServer implements Runnable{
@@ -31,10 +31,10 @@ public class ScWithServer implements Runnable{
 	 public static void sendProtocol(ClientProtocol obj){
 		 try {
 			 ClientProtocol proto = obj;
+			 //output.reset();
 			 System.out.println("sendProtocol이 받은 프로토콜 데이터 : " +proto.getData());
 			 System.out.println("sendProtocol이 받은 프로토콜 상태 : " + proto.getState());
-			 proto.setData((String)"hihi");
-			output.writeObject((ClientProtocol)proto);
+			output.writeObject(proto);
 			output.flush();
 			System.out.println("클라이언트 : 주문 프로토콜 전송 완료");
 		} catch (Exception e) {

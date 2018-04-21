@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import client.vo.Order;
+import protocol.*;
 import server.model.DBCon;
 
 public class OrderModel {

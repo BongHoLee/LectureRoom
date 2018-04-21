@@ -5,10 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import server.model.*;
 import server.view.*;
 import server.vo.*;
+import protocol.ClientProtocol;
+import protocol.Order;
 
 //클라이언트가 접속시 호출되어서 실행되는 스레드
 public class ScWithClient implements Runnable {
@@ -81,9 +84,13 @@ public class ScWithClient implements Runnable {
 	public void receiveProtocol() {
 		while (true) {
 			try {
+				
 				ClientProtocol protocol = (ClientProtocol) input.readObject();
-				//String protocol = (String)input.readObject();
 				System.out.println("클라이언트가 보낸 프로토콜 객체 : " +protocol.getData());
+				//Order or = (Order)protocol.getData();
+				ArrayList list = (ArrayList)protocol.getData();
+				Order or = (Order)list.get(0);
+				System.out.println("서버입니다. 클라이언트가 보낸 Order객체의 Pro_no: " + or.getPro_no());
 			System.out.println("서버입니다. 클라이언트가 보낸 프로토콜을 받았어요 "+ protocol.getState());
 				//System.out.println("서버입니다. 클라이언트가 보낸 프로토콜입니다 : + " +protocol);
 			} catch (Exception  e) {

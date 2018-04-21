@@ -1,6 +1,6 @@
-package client.service;
+package protocol;
 import java.io.Serializable;
-import client.vo.*;
+
 
 public class ClientProtocol implements Serializable {
 	public static final int		Chatting_Start		 = 210;	 // 채팅시작시
