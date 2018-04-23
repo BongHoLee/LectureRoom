@@ -32,7 +32,7 @@ public class UsePcModel {
 		ps2.close();
 
 		//use_no에 해당하는 product 가격을 모두 구해와서 use_charge와 합한 값을 uc에 저장
-		String sql1 = "SELECT SUM(product.pro_price) FROM product, order_pro, use_pc WHERE order_pro.order_flag=0 AND product.pro_no = order_pro.pro_no AND order_pro.use_no=?";
+		String sql1 = "SELECT SUM(product.pro_price) FROM product, order_pro, use_pc WHERE order_pro.order_flag=0 AND product.pro_no = order_pro.pro_no AND order_pro.use_no=? AND use_pc.use_flag=0";
 		PreparedStatement ps = con.prepareStatement(sql1);
 		ps.setInt(1, uc.getUse_no());
 		ResultSet rs = ps.executeQuery();
@@ -50,11 +50,41 @@ public class UsePcModel {
 		ps3.executeUpdate();
 		ps3.close();
 		
-		//String sql4 = "DELETE FROM use_pc WHERE use_no=?";
+		//PC 테이블의 flag를 0으로 바꿈
+		String sql4 = "UPDATE pc SET pc_flag=0 WHERE pc_no=?";
+		PreparedStatement ps4 = con.prepareStatement(sql4);
+		ps4.setInt(1, uc.getPc_no());
+		ps4.executeUpdate();
+		ps4.close();
+	}
+	
+	//use_time과 use_charge를 검색
+	public void updateUI(UsePc usepc) throws SQLException{
+		String sql = "SELECT use_time, use_charge FROM use_pc WHERE use_flag=0 AND c_id=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, usepc.getC_id());
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()){
+			usepc.setUsecharge(rs.getInt("use_charge"));
+			usepc.setUsetime(rs.getInt("use_time"));
+		}
+		rs.close();
+		ps.close();
+		
+		
+		
+	}
+	
+	public void updateFlag(UsePc usepc) throws SQLException{
+		String sql = "UPDATE use_pc SET use_flag=1 WHERE use_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, usepc.getUse_no());
+		ps.executeUpdate();
+		ps.close();
 	}
 	
 	public void insertByVo(UsePc usepc){
-		String sql = "INSERT INTO USE_PC(use_no, c_id, pc_no, m_id, use_time, use_charge, use_total) VALUES(usepc_seq.nextval, ?, ?, ?, 0, 0, 0)";
+		String sql = "INSERT INTO USE_PC(use_no, c_id, pc_no, m_id, use_time, use_charge, use_total, use_flag) VALUES(usepc_seq.nextval, ?, ?, ?, 0, 0, 0, 0)";
 		String sql2 = "SELECT use_no FROM USE_PC WHERE c_id=?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);

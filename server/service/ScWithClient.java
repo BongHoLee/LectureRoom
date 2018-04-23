@@ -16,6 +16,8 @@ import protocol.Order;
 //클라이언트가 접속시 호출되어서 실행되는 스레드
 public class ScWithClient implements Runnable {
 	public static PcInfo pcinfo;
+	Runnable updateTh;
+	Thread upth;
 	PcInfoModel pcinfomodel;
 	SCustomer cus;
 	UsePc usepc;
@@ -70,14 +72,23 @@ public class ScWithClient implements Runnable {
 		usepc.setPc_no(pcinfo.getPc_no());
 		usepc.setM_id("manager");
 		usepc.setUsetime(0);
+		usepc.setUse_flag(0);
 		usepcmodel.insertByVo(usepc);
 		
 	}
 
-	public void updateSeat() {
+	
+	//좌석의 사용 정보를 갱신하는 메소드. 스레드를 실행한다.
+	public void updateSeat() throws Exception {
 		pan.setSeatInfo(1);
 		System.out.println("좌석 바뀌었는지 확인");
+		//Runnable r = new SeatUpdateTh(pan, usepc);
+		updateTh = new SeatUpdateTh(pan, usepc);
+		upth = new Thread(updateTh);
+		upth.start();
+		
 	}
+	
 	
 	// 클라이언트가 보낸 프로토콜을 전송받는다.
 	public void receiveProtocol() {
@@ -125,13 +136,19 @@ public class ScWithClient implements Runnable {
 	}
 	
 	
-
+	//클라이언트 연결 종료시 실행되는 메소드
 	public void closeSoc() {
 		try {
 			System.out.println(usepc.getPc_no() + "번 PC 종료");
 			pan.setSeatInfo(0);
 			usepcmodel.calPc(usepc);											//use_pc 테이블 관련 갱신
-			new MyDialog(null, usepc.getPc_no()+"번 PC가 종료되었습니다. \n사용자 ID : "+usepc.getC_id()+"\n총 금액 : " + usepc.getUsetotal());
+			upth.interrupt();  													//좌석갱신 스레드 종료
+			pan.label[1].setText("");
+			pan.label[2].setText("");
+			
+			usepcmodel.updateFlag(usepc);
+			String message = usepc.getPc_no()+"번 PC가 종료되었습니다. 총 금액 : " + usepc.getUsetotal();
+			new MyDialog2(null, message);
 			output.close();
 			input.close();
 			connection.close();
@@ -156,13 +173,16 @@ public class ScWithClient implements Runnable {
 			callPcUp(); // PC_NO을 받아오기 위해서 호출
 			updatePcFlag(); // PC테이블의 Flag를 1로 갱신
 			insertUsePc(); // USE_PC 테이블에 INSERT
-			updateSeat();
+			updateSeat();		//좌석 정보 갱신
 			receiveProtocol();
 			System.out.println("종료가 되었습니다.");
 		}  catch (IOException e) {
 			System.out.println("클라이언트와 스트림 연결 에러");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{

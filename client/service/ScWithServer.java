@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
+
 import protocol.*;
 import client.view.AccessChat;
 import client.view.ChatView;
@@ -61,6 +63,18 @@ public class ScWithServer implements Runnable{
 			}
 		 }while(true);
 	 }
+	 
+	 
+	 //UseInfoView를 갱신하는 스레드 실행
+	 public void updateUseInfo() {	
+		 try {
+			Runnable r = new UpdateUIth(cus);	//UserInfoView를 갱신하기위한 스레드를 따로	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}							
+		 
+	 }
 	@Override
 	public void run() {
 		try {
@@ -68,6 +82,7 @@ public class ScWithServer implements Runnable{
 			System.out.println("클라이언트 입니다. 스트림이 연결되었네요");
 			output.writeObject(cus.getC_id());											//서버에 접속자 c_id를 전송
 			output.flush();
+			updateUseInfo();   						//UserInfo를 갱신하기 위한 스레드를 따로 실행.
 			receiveProtocol();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

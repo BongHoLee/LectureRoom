@@ -27,10 +27,10 @@ import protocol.ClientProtocol;
 
 public class UseInfoView extends JPanel implements ActionListener {
 	BufferedImage img = null;
-	JLabel lUseNo, lUseTime, lUseCharge;
-	JTextField tfUseNo, tfUseTime, tfUseCharge;
-	JButton bChat, bLogout;
-	PcInfoModel pcinfomodel;
+	public JLabel lUseNo, lUseTime, lUseCharge;
+	public JTextField tfUseNo, tfUseTime, tfUseCharge;
+	public JButton bChat, bLogout;
+	public PcInfoModel pcinfomodel;
 	public ChatView cv;
 	
 	

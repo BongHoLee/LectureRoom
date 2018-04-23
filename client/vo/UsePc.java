@@ -1,4 +1,4 @@
-package server.vo;
+package client.vo;
 
 public class UsePc {
 	String c_id;
@@ -9,14 +9,7 @@ public class UsePc {
 	int usetime;
 	int usecharge;
 	int usetotal;
-	int use_flag;
 	
-	public int getUse_flag() {
-		return use_flag;
-	}
-	public void setUse_flag(int use_flag) {
-		this.use_flag = use_flag;
-	}
 	public String getC_id() {
 		return c_id;
 	}

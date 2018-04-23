@@ -22,7 +22,7 @@ public class MainView extends JDialog {
 		try {
 			OrderV = new OrderView();
 			MenuV = new MenuTabView(OrderV);
-			UseInfoV = new UseInfoView();
+			UseInfoV = AccessUseInfo.useInfo();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

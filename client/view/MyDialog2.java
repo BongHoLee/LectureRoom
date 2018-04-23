@@ -106,4 +106,6 @@ public class MyDialog2 extends JDialog implements ActionListener {
 		}
 		
 	}
+	
+
 }

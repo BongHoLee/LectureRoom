@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  
 public class PanSeat extends JPanel implements MouseListener {
     private BufferedImage img = null;
-    JLabel[] label;										//좌석에 붙는 텍스트
+    public JLabel[] label;										//좌석에 붙는 텍스트
     private int numSeat;								// 좌석 번호
     JPanel panImg;
     JPanel panContent;

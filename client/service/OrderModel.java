@@ -21,7 +21,7 @@ public class OrderModel {
 	}
 	
 	public void selectUseNo(Order order) throws SQLException{
-		String sql = "SELECT use_no FROM use_pc WHERE c_id=?";
+		String sql = "SELECT use_no FROM use_pc WHERE use_flag=0 AND c_id=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, ClientMain.c_id);								//c_id를 이용해 USE_PC테이블 참조
 		ResultSet rs = ps.executeQuery();
