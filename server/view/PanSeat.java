@@ -103,7 +103,7 @@ public class PanSeat extends JPanel implements MouseListener {
 			label[0].setForeground(Color.RED);
 		}else if(status == 0){
 			img("gameOff");
-			label[0].setText((numSeat) + ". 사용중");
+			label[0].setText((numSeat) + ". 빈 자리");
 			label[0].setForeground(new Color(36, 205, 198));
 		}
 	}

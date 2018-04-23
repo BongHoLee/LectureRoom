@@ -57,9 +57,6 @@ public class ScWithServer implements Runnable{
 					cv.taChatAll.append("관리자 - : " + message + "\n");
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("클라이언트입니다. whileChatting에 문제가있어요");
 				System.exit(0);
 			}
 		 }while(true);

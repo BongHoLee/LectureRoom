@@ -21,7 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import client.service.PcInfoModel;
+import client.service.ScWithServer;
 import client.vo.PcInfo;
+import protocol.ClientProtocol;
 
 public class UseInfoView extends JPanel implements ActionListener {
 	BufferedImage img = null;
@@ -174,6 +176,11 @@ public class UseInfoView extends JPanel implements ActionListener {
 		Object obj = e.getSource();
 		if(obj == bChat){
 			cv = AccessChat.chat();
+		}else if(obj == bLogout){
+			ClientProtocol proto = new ClientProtocol();
+			proto.setState(ClientProtocol.EXIT);
+			ScWithServer.sendProtocol(proto);
+			System.exit(0);
 		}
 		
 	}

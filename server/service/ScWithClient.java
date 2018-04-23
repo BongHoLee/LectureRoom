@@ -100,6 +100,9 @@ public class ScWithClient implements Runnable {
 				}
 				
 				//3. 종료 메시지일시.
+				if(protocol.getState() == protocol.EXIT){
+					break;
+				}
 			System.out.println("서버입니다. 클라이언트가 보낸 프로토콜을 받았어요 "+ protocol.getState());
 				//System.out.println("서버입니다. 클라이언트가 보낸 프로토콜입니다 : + " +protocol);
 			} catch (Exception  e) {
@@ -123,6 +126,17 @@ public class ScWithClient implements Runnable {
 	
 
 	public void closeSoc() {
+		try {
+			System.out.println(usepc.getPc_no() + "번 PC 종료");
+			pan.setSeatInfo(0);
+			output.close();
+			input.close();
+			connection.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -146,6 +160,8 @@ public class ScWithClient implements Runnable {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			closeSoc();					//최종적으로 소켓을 종료
 		}
 
 	}
