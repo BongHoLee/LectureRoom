@@ -28,7 +28,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import server.vo.SalesVO;
 
 public class SalesChart extends JPanel {
-	BufferedImage img = null;
 	private static final long serialVersionUID = 1L;
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@70.12.115.72:1521:orcl";
@@ -40,26 +39,17 @@ public class SalesChart extends JPanel {
 	public SalesChart(String applicationTitle, String chartTitle) throws ClassNotFoundException, SQLException {
 		Class.forName(driver); // 1. 드라이버 로딩
 		con = DriverManager.getConnection(url, user, passw);
-		
-		try {
-			img = ImageIO.read(new File("src/img/Seat.png"));
-		} catch (IOException e) {
-			System.out.println("이미지 불러오기 실패 : " + e.getMessage());
-		}
 
 		// based on the dataset we create the chart
 		JFreeChart pieChart = ChartFactory.createBarChart(chartTitle, "Date", "Sales", createDataset(),
 				PlotOrientation.VERTICAL, true, true, false);
-		pieChart.setBackgroundImage(img);
 
 		// Adding chart into a chart panel
 		ChartPanel chartPanel = new ChartPanel(pieChart);
-		chartPanel.setOpaque(false);
 		// settind default size
 		chartPanel.setPreferredSize(new java.awt.Dimension(500, 500));
 
 		add(chartPanel);
-		setOpaque(false);
 	}
 
 	private CategoryDataset createDataset() throws SQLException { 
