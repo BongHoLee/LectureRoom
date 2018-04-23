@@ -2,11 +2,12 @@ package client.view;
 
 import java.sql.SQLException;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class MainView extends JFrame {
+public class MainView extends JDialog {
 	UseInfoView UseInfoV;
 	MenuTabView MenuV;
 	OrderView OrderV;
@@ -30,7 +31,8 @@ public class MainView extends JFrame {
 		
 		setLayout(null);
 		setSize(415,735);
-		setLocation(865, 0);
+		setLocation(880, 0);
+		setUndecorated(true);
 		setVisible( true );
 		
 		JPanel p_up = new JPanel();
@@ -48,7 +50,9 @@ public class MainView extends JFrame {
 		p_bottom.add(OrderV);
 		this.add(p_bottom);
 		
-		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		
+		
+		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 	}
 
 	
