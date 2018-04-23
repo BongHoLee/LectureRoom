@@ -3,6 +3,10 @@ package server.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
  
-public class PanSeat extends JPanel {
+public class PanSeat extends JPanel implements MouseListener {
     private BufferedImage img = null;
     JLabel[] label;										//좌석에 붙는 텍스트
     private int numSeat;								// 좌석 번호
+    JPanel panImg;
+    JPanel panContent;
+    JLayeredPane panLayered;
+    ChatView ChatV;
     
      
     public PanSeat(int numSeat) {
@@ -25,12 +33,12 @@ public class PanSeat extends JPanel {
         img("gameOff");
         setLayout(null);
  
-        JPanel panImg = new InnerPanel();
+        panImg = new InnerPanel();
         panImg.setBounds(0, 0, 99, 99);
         panImg.setOpaque(false);
                  
         //상태정보 패널
-        JPanel panContent = new JPanel();
+        panContent = new JPanel();
         panContent.setLayout(null);
         panContent.setBounds(0, 0, 99, 99);
         int posLabel = 15;
@@ -50,7 +58,7 @@ public class PanSeat extends JPanel {
          
          
         //제이레이어패널
-        JLayeredPane panLayered = new JLayeredPane();
+        panLayered = new JLayeredPane();
         panLayered.setBounds(0, 0, 1250, 700);
         panLayered.setLayout(null);
         panLayered.setOpaque(false);
@@ -61,6 +69,7 @@ public class PanSeat extends JPanel {
         setVisible(true);
         setOpaque(false);
         setFocusable(true);
+        eventProc();
     }
   
     public JLabel[] getLabel() {
@@ -109,4 +118,43 @@ public class PanSeat extends JPanel {
         }
         repaint();
     }
+    
+    public void eventProc(){
+    	panContent.addMouseListener(this);
+    }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Object evt = e.getSource();
+		if(evt == panContent){
+			ChatV = new ChatView();
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
 }
