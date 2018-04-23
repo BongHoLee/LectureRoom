@@ -44,7 +44,7 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	public void addLayout(){
 		tfChat = new JTextField(50);
-		tfPCno = new JTextField(10);
+		tfPCno = new JTextField(20);
 		taChatAll = new JTextArea();
 		
 		bChatSend = new JButton("보내기");
@@ -76,7 +76,7 @@ public class ChatView extends JFrame implements ActionListener {
 		
 		
 		
-		LPCno.setBounds(10, 5, 50, 30);
+		LPCno.setBounds(10, 5, 100, 30);
 		panel.add(LPCno);
 		LPCno.setForeground(Color.WHITE);
 		
@@ -118,12 +118,15 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	public void eventProc(){
 		bChatSend.addActionListener(this);
+		tfChat.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bChatSend){
+			send();
+		}else if(evt == tfChat){
 			send();
 		}
 		

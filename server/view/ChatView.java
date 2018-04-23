@@ -50,7 +50,7 @@ public class ChatView extends JFrame implements ActionListener {
 		
 		bChatSend = new JButton("보내기");
 		
-		LPCno = new JLabel("PC번호");
+		LPCno = new JLabel("To PcNo.");
 		LChat = new JLabel("입력 : ");
 		
 		try {
@@ -119,12 +119,15 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	public void eventProc(){
 		bChatSend.addActionListener(this);
+		tfChat.addActionListener(this);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bChatSend){
+			send();
+		}else if(evt == tfChat){
 			send();
 		}
 		

@@ -3,11 +3,13 @@ import java.io.Serializable;
 
 
 public class ClientProtocol implements Serializable {
+	static final long serialVersionUID = 100L;
 	public static final int		Chatting_Start		 = 210;	 // 채팅시작시
 	public static final int		Chatting_Message	 = 220; 	 // 채팅 메시지 전송시
 	public static final int		Chatting_End		 = 230; 	 // 채팅 종료시
 	
 	public static final int      Order_Send			= 300;		 // 음식 주문시
+	public static final int		EXIT 					=  400;	 // 사용 종료시
 	
 	
 
@@ -41,7 +43,7 @@ public class ClientProtocol implements Serializable {
 	public static int getExit() {
 		return EXIT;
 	}
-	public static final int		EXIT 					=  400;	 // 사용 종료시
+	
 	
 	
 

@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -17,16 +20,22 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import client.service.PcInfoModel;
+import client.vo.PcInfo;
+
 public class UseInfoView extends JPanel implements ActionListener {
 	BufferedImage img = null;
 	JLabel lUseNo, lUseTime, lUseCharge;
 	JTextField tfUseNo, tfUseTime, tfUseCharge;
 	JButton bChat, bLogout;
+	PcInfoModel pcinfomodel;
 	public ChatView cv;
 	
 	
-	public UseInfoView(){
+	public UseInfoView() throws SQLException{
+		pcinfomodel = new PcInfoModel();
 		addLayout();
+		getMyIp();
 		eventProc();
 	}
 	
@@ -125,6 +134,27 @@ public class UseInfoView extends JPanel implements ActionListener {
 		panel.add(p_info, 0);
 		add(panel);
 		
+	}
+	
+	//내 IP를 얻어와서 pc번호를 가져옴
+	public void getMyIp(){
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			String myip = ip.getHostAddress();
+			PcInfo pcinfo = new PcInfo();
+			pcinfo.setIp("/"+myip);
+			int pc_no = pcinfomodel.returnPcNo(pcinfo);
+			tfUseNo.setText(String.valueOf(pc_no));
+			
+			
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void eventProc(){
