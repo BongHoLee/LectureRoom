@@ -30,6 +30,8 @@ public class SalesView extends JPanel implements ActionListener{
 	JTextField tfDailySales, tfMonthlySales, tfTotalSales;
 	JComboBox cDate;
 	
+	SalesChart chart;
+	
 	SalesModel sm;
 	
 	
@@ -64,6 +66,14 @@ public class SalesView extends JPanel implements ActionListener{
 		tfDailySales = new JTextField();
 		tfMonthlySales = new JTextField();
 		tfTotalSales = new JTextField();
+		
+		try {
+			chart = new SalesChart("Browser Usage Statistics", "Data Of Sales");
+			
+		} catch (ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 		try {
@@ -157,10 +167,12 @@ public class SalesView extends JPanel implements ActionListener{
 		JPanel p_chart = new JPanel();
 		p_chart.setBounds(550, 20, 500, 500);
 		p_chart.setOpaque(false);
-		p_chart.setLayout(null);
-		p_chart.setBorder(BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		p_chart.setLayout(null); 
+//		p_chart.setBorder(BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		p_sales.add(p_chart);
 		
+		chart.setBounds(0, 0, 500, 500);
+		p_chart.add(chart);
 		
 		
 		panel.add(mp, 1);	//	레이어드판에 이미지패널 붙여줌

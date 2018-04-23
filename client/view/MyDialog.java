@@ -22,6 +22,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
 public class MyDialog extends JDialog implements ActionListener {
 	BufferedImage img = null;
 	JLabel lText;
@@ -47,7 +48,8 @@ public class MyDialog extends JDialog implements ActionListener {
 		}
 		
 		setLayout(null);
-		setBounds(0, 0, 300, 200);
+		setBounds(400, 400, 300, 180);
+		
 		
 		JLayeredPane panel = new JLayeredPane();
 		panel.setBounds(0, 0, 400, 200);
@@ -60,6 +62,7 @@ public class MyDialog extends JDialog implements ActionListener {
 		p_info.setBounds(0, 0, 400, 200);
 		p_info.setLayout(null);
 		p_info.setOpaque(false);
+		p_info.setBorder(BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		
 		lText.setBounds(0, 30, 285, 30);
 		lText.setOpaque(false);
@@ -78,6 +81,8 @@ public class MyDialog extends JDialog implements ActionListener {
 		panel.add(mp, 1);
 		panel.add(p_info, 0);
 		add(panel);
+		
+		setUndecorated(true);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
