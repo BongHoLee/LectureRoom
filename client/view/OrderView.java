@@ -20,10 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import protocol.*;
 import client.service.OrderModel;
 import client.service.ScWithServer;
-import client.view.UseInfoView.Mypanel;
+import client.vo.Product;
+import protocol.ClientProtocol;
+import protocol.Order;
 
 
 //
@@ -47,7 +48,7 @@ public class OrderView extends JPanel implements ActionListener {
 	public void addLayout(){
 		taTotalMenu = new JTextArea();
 		lTotalPrice = new JLabel("총 금액");
-		tfTotalPrice = new JTextField();
+		tfTotalPrice = new JTextField("0");
 		bCharge = new JButton("결제");
 		bCancel = new JButton("취소");
 		
@@ -144,11 +145,20 @@ public class OrderView extends JPanel implements ActionListener {
 			try {
 				om.cancelOrder(orderList);	
 				System.out.println("주문 취소 완료.");
+				taTotalMenu.setText("");
+				tfTotalPrice.setText("0");
 			} catch (SQLException e1) {
 			}
 			orderList.clear();
 		}
 		
+	}
+	
+	public void addTotalMenu(Product pro){
+		taTotalMenu.append(pro.getPro_name() + "  :  " + pro.getPro_price() + " 원 \n");
+		int totalPrice = Integer.parseInt(tfTotalPrice.getText());
+		totalPrice += pro.getPro_price();
+		tfTotalPrice.setText(String.valueOf(totalPrice));
 	}
 
 }

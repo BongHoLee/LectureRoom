@@ -19,9 +19,9 @@ public class MainView extends JFrame {
 	public void addLayout(){
 		
 		try {
-			MenuV = new MenuTabView();
-			UseInfoV = new UseInfoView();
 			OrderV = new OrderView();
+			MenuV = new MenuTabView(OrderV);
+			UseInfoV = new UseInfoView();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -9,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -19,7 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import client.service.OrderModel;
-import protocol.*;
+import client.vo.Product;
+import protocol.Order;
 
 public class FoodView extends JPanel implements ActionListener {
 	
@@ -29,8 +29,10 @@ public class FoodView extends JPanel implements ActionListener {
 	
 	OrderModel om;													//Order와 관련된 데이터베이스 접근
 	
+	OrderView OrderV;
 	
-	public FoodView(){
+	public FoodView(OrderView OrderV){
+		this.OrderV = OrderV;
 		connectDB();
 		addLayout();
 		eventProc();
@@ -165,6 +167,8 @@ public class FoodView extends JPanel implements ActionListener {
 					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
 					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
 					System.out.println(OrderView.orderList.size());
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -181,6 +185,8 @@ public class FoodView extends JPanel implements ActionListener {
 					order.setPro_no(pro_no);
 					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
 					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -197,6 +203,8 @@ public class FoodView extends JPanel implements ActionListener {
 					order.setPro_no(pro_no);
 					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
 					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -213,6 +221,8 @@ public class FoodView extends JPanel implements ActionListener {
 					order.setPro_no(pro_no);
 					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
 					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

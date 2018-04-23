@@ -6,11 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import protocol.*;
+import client.view.OrderView;
+import client.vo.Product;
+import protocol.Order;
 import server.model.DBCon;
 
 public class OrderModel {
 	private Connection con;
+	
+	OrderView orderV;
 	
 	public OrderModel() throws SQLException{
 		con = DBCon.getConnection();
@@ -49,6 +53,28 @@ public class OrderModel {
 			}
 		}
 		return check;		
+	}
+	
+	public Product addTotalMenu(int pro_no) throws SQLException{
+		Product pro = new Product();
+		
+		String sql1 = "SELECT pro_no, pro_name, pro_stock, pro_price FROM product WHERE pro_no = ?";
+		PreparedStatement ps2 = con.prepareStatement(sql1);
+		ps2.setInt(1, pro_no);
+		ResultSet rs = ps2.executeQuery();
+		if(rs.next()){
+			int no = rs.getInt(1);
+			String name = rs.getString(2);
+			int stock = rs.getInt(3);
+			int price = rs.getInt(4);
+			if(stock > 0){
+				pro.setPro_no(no);
+				pro.setPro_name(name);
+				pro.setPro_stock(stock);
+				pro.setPro_price(price);
+			}
+		}
+		return pro;		
 	}
 	
 	//취소 버튼 클릭시 실행되는 메소드. orderList의 내용(Order객체)를 참조해서 테이블 갱신

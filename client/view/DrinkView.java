@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import client.service.OrderModel;
+import client.vo.Product;
+import protocol.Order;
 
 public class DrinkView extends JPanel implements ActionListener {
 	BufferedImage img = null;
@@ -26,8 +28,11 @@ public class DrinkView extends JPanel implements ActionListener {
 	
 	OrderModel om;
 	
+	OrderView OrderV;
 	
-	public DrinkView(){
+	
+	public DrinkView(OrderView OrderV){
+		this.OrderV = OrderV;
 		connectDB();
 		addLayout();
 		eventProc();
@@ -156,6 +161,14 @@ public class DrinkView extends JPanel implements ActionListener {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
 					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}else{									//주문한 목록을 ArrayList에 담는다.
+					Order order = new Order();
+					order.setPro_no(pro_no);
+					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
+					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					System.out.println(OrderView.orderList.size());
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -167,6 +180,14 @@ public class DrinkView extends JPanel implements ActionListener {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
 					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}else{									//주문한 목록을 ArrayList에 담는다.
+					Order order = new Order();
+					order.setPro_no(pro_no);
+					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
+					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					System.out.println(OrderView.orderList.size());
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -178,6 +199,14 @@ public class DrinkView extends JPanel implements ActionListener {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
 					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}else{									//주문한 목록을 ArrayList에 담는다.
+					Order order = new Order();
+					order.setPro_no(pro_no);
+					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
+					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					System.out.println(OrderView.orderList.size());
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
@@ -189,6 +218,14 @@ public class DrinkView extends JPanel implements ActionListener {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
 					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+				}else{									//주문한 목록을 ArrayList에 담는다.
+					Order order = new Order();
+					order.setPro_no(pro_no);
+					om.selectUseNo(order);		//order 객체의 pro_no, use_no이 세팅이 됨
+					OrderView.orderList.add(order);			//세팅된 order 객체를 orderList에 삽입
+					System.out.println(OrderView.orderList.size());
+					Product pro = om.addTotalMenu(pro_no);		//pro_no을 통해 Product 객체에 값 넣어줌
+					OrderV.addTotalMenu(pro);		//Product 객체에 담긴 값으로 OrderView 에 내용 띄워줌
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

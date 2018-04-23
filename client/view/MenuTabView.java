@@ -8,15 +8,17 @@ import javax.swing.JTabbedPane;
 public class MenuTabView extends JTabbedPane{
 	FoodView FoodV;
 	DrinkView DrinkV;
+	OrderView OrderV;
 	
 	
-	public MenuTabView() {
+	public MenuTabView(OrderView OrderV) {
+		this.OrderV = OrderV;
 		addLayout();
 	}
 	
 	public void addLayout(){
-		FoodV = new FoodView();
-		DrinkV = new DrinkView();
+		FoodV = new FoodView(OrderV);
+		DrinkV = new DrinkView(OrderV);
 		
 		this.setBounds(0, 0, 400, 200);
 		this.setOpaque(true);
