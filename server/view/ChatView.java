@@ -45,6 +45,7 @@ public class ChatView extends JFrame implements ActionListener {
 	public void addLayout(){
 		tfChat = new JTextField(50);
 		tfPCno = new JTextField(10);
+		tfPCno.setText(String.valueOf(ScWithClient.pcinfo.getPc_no()));
 		taChatAll = new JTextArea();
 		
 		bChatSend = new JButton("보내기");
@@ -137,7 +138,7 @@ public class ChatView extends JFrame implements ActionListener {
 		proto.setState(ClientProtocol.Chatting_Message);  			//채팅 메시지임을 알리는 상태
 		ScWithClient.sendProtocol(proto); 								//클라이언트에게 프로토콜 전송
 		tfChat.setText("");
-		taChatAll.append("\n"+str);
+		taChatAll.append("관리자 - : " + str + "\n");
 		
 		
 	}

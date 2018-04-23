@@ -3,6 +3,7 @@ package client.view;
 public class AccessChat {
 	private static ChatView cv;
 	
+	//singletone 패턴을 이용한 ChatView 호출
 	private AccessChat(){
 		
 	}

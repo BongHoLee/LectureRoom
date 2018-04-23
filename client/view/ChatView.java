@@ -20,7 +20,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import client.service.ScWithServer;
 import client.vo.Customer;
+import protocol.ClientProtocol;
 
 public class ChatView extends JFrame implements ActionListener {
 
@@ -47,7 +49,7 @@ public class ChatView extends JFrame implements ActionListener {
 		
 		bChatSend = new JButton("보내기");
 		
-		LPCno = new JLabel("PC번호");
+		LPCno = new JLabel("To 관리자");
 		LChat = new JLabel("입력 : ");
 		
 		try {
@@ -129,17 +131,16 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	//보내기 버튼이 눌렸을 때 실행되는 메소드
 	public void send(){
+		ClientProtocol proto = new ClientProtocol();					//프로토콜을 생성
 		String str = tfChat.getText();
-		
-		
+		proto.setData(str);
+		proto.setState(ClientProtocol.Chatting_Message);  			//채팅 메시지임을 알리는 상태
+		ScWithServer.sendProtocol(proto); 								//채팅 전송
+		tfChat.setText("");
+		taChatAll.append("Me  - : " + str + " \n");
+
 	}
-	
-	
-	public static void main(String[] args) {
-		ChatView view = new ChatView();
-	}
-	
-	
+
 	// 이미지가 들어갈 패널을 생성하는 이너클래스
 	class Mypanel extends JPanel{
 		public void paint(Graphics g){

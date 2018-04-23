@@ -34,9 +34,6 @@ public class ScWithServer implements Runnable{
 	 public static void sendProtocol(ClientProtocol obj){
 		 try {
 			 ClientProtocol proto = obj;
-			 //output.reset();
-			 System.out.println("sendProtocol이 받은 프로토콜 데이터 : " +proto.getData());
-			 System.out.println("sendProtocol이 받은 프로토콜 상태 : " + proto.getState());
 			output.writeObject(proto);
 			output.flush();
 			System.out.println("클라이언트 : 주문 프로토콜 전송 완료");
@@ -52,11 +49,12 @@ public class ScWithServer implements Runnable{
 			 try {
 				ClientProtocol proto = (ClientProtocol)input.readObject();		//서버로부터 프로토콜을 받음
 				
-				if(proto.getState() == proto.Chatting_Message){						//받은게 채팅 메시지면
+				//1.채팅 메시지를 받았을 시
+				if(proto.getState() == proto.Chatting_Message){					
 					cv = AccessChat.chat();
 					cv.setVisible(true);
 					String message = (String)proto.getData();
-					cv.taChatAll.append("\n"+message);
+					cv.taChatAll.append("관리자 - : " + message + "\n");
 				}
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block

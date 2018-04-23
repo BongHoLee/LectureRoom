@@ -15,11 +15,13 @@ import protocol.Order;
 
 //클라이언트가 접속시 호출되어서 실행되는 스레드
 public class ScWithClient implements Runnable {
+	public static PcInfo pcinfo;
 	PcInfoModel pcinfomodel;
 	SCustomer cus;
-	PcInfo pcinfo;
 	UsePc usepc;
 	UsePcModel usepcmodel;
+	ChatView cv;
+	
 
 	Socket connection; // 클라이언트와 연결시 생성되는 소켓
 	PanSeat pan;
@@ -50,13 +52,9 @@ public class ScWithClient implements Runnable {
 	// 클라이언트의 C_ID를 받은 후 PcInfoModel을 호출해서 PC테이블 접근
 	public void callPcUp() throws ClassNotFoundException, IOException {
 		String c_id = (String) input.readObject(); // 클라이언트로부터 C_id를 받음
-		pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress())); // IP를
-																				// 이용해서
-																				// PC_NO를
-																				// 얻어옴
-		pcinfo.setPc_ip(connection.getInetAddress().toString()); // pcinfo 객체에
-																	// pc_no,
-																	// pc_ip 저장
+		pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress())); // IP를	 이용해 PC_NO를 얻어옴		
+		pcinfo.setPc_ip(connection.getInetAddress().toString()); // pcinfo 객체에 pc_no, pc_ip 저장
+											
 		cus.setC_id(c_id); // 현재 사용중인 C_id 저장
 	}
 
@@ -94,6 +92,10 @@ public class ScWithClient implements Runnable {
 				}
 				//2. 채팅 메시지일시
 				if(protocol.getState() == protocol.Chatting_Message){
+					cv = AccessChat.chat();
+					cv.setVisible(true);
+					String message = (String)protocol.getData();
+					cv.taChatAll.append("고객  -: " + message + " \n");
 					
 				}
 				

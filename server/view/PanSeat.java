@@ -107,6 +107,7 @@ public class PanSeat extends JPanel implements MouseListener {
 			label[0].setForeground(new Color(36, 205, 198));
 		}
 	}
+	
  
     public void img(String filename) {
         // 이미지 받아오기 - gameOn, gameOff (로그인, 로그오프)
@@ -128,7 +129,7 @@ public class PanSeat extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		Object evt = e.getSource();
 		if(evt == panContent){
-			ChatV = new ChatView();
+			ChatV = AccessChat.chat();
 		}
 	}
 

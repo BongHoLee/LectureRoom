@@ -22,6 +22,7 @@ public class UseInfoView extends JPanel implements ActionListener {
 	JLabel lUseNo, lUseTime, lUseCharge;
 	JTextField tfUseNo, tfUseTime, tfUseCharge;
 	JButton bChat, bLogout;
+	public ChatView cv;
 	
 	
 	public UseInfoView(){
@@ -140,7 +141,10 @@ public class UseInfoView extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if(obj == bChat){
+			cv = AccessChat.chat();
+		}
 		
 	}
 }
