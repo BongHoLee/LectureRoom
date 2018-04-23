@@ -26,12 +26,12 @@ import server.service.ScWithClient;
 
 public class ChatView extends JFrame implements ActionListener {
 
-	JTextField tfChat, tfPCno;											//고객 아이디, 패스워드 입력 필드
-	JTextArea taChatAll;
-	JButton bChatSend;						//고객 회원가입, 로그인 버튼
+	public JTextField tfChat, tfPCno;											//고객 아이디, 패스워드 입력 필드
+	public JTextArea taChatAll;
+	public JButton bChatSend;						//고객 회원가입, 로그인 버튼
 	
-	JLabel LPCno;
-	JLabel LChat;
+	public JLabel LPCno;
+	public JLabel LChat;
 	
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
 	
@@ -61,7 +61,7 @@ public class ChatView extends JFrame implements ActionListener {
 		setTitle("Log In");
 		setSize(517,376);
 		setLocation(200, 200);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setLayout(null);
 		

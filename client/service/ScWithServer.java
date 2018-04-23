@@ -6,9 +6,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import protocol.*;
+import client.view.AccessChat;
+import client.view.ChatView;
 import client.vo.*;
 
 public class ScWithServer implements Runnable{
+	ChatView cv;
 	public Customer cus;											//클라이언트 정보를 담기 위한 vo객체
 	Socket connection;
 	private static ObjectOutputStream output;
@@ -43,12 +46,18 @@ public class ScWithServer implements Runnable{
 		}
 	 }
 	 
-	 //서버로부터 메시지를 받는 메소드
-	 public void whileChatting(){
+	 //서버로부터 프로토콜을 받는 메소드
+	 public void receiveProtocol(){
 		 do{
 			 try {
-				String message = (String) input.readObject();
-				System.out.println("서버로부터 "+message);
+				ClientProtocol proto = (ClientProtocol)input.readObject();		//서버로부터 프로토콜을 받음
+				
+				if(proto.getState() == proto.Chatting_Message){						//받은게 채팅 메시지면
+					cv = AccessChat.chat();
+					cv.setVisible(true);
+					String message = (String)proto.getData();
+					cv.taChatAll.append("\n"+message);
+				}
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,7 +73,7 @@ public class ScWithServer implements Runnable{
 			System.out.println("클라이언트 입니다. 스트림이 연결되었네요");
 			output.writeObject(cus.getC_id());											//서버에 접속자 c_id를 전송
 			output.flush();
-			whileChatting();
+			receiveProtocol();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
