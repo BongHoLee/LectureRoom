@@ -207,7 +207,7 @@ public class StockView extends JPanel implements ActionListener {
 				int row = tbStockList.getSelectedRow();
 				int col = 0;
 				int no = (int)tbStockList.getValueAt(row, col);
-				JOptionPane.showMessageDialog(null, no);
+				new MyDialog(null, no);
 
 				try {
 					Product pro = pm.searchByNo(no);
@@ -226,10 +226,10 @@ public class StockView extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bModify){
-			JOptionPane.showMessageDialog(null, "재고 수정");
+			new MyDialog(null, "재고 수정");
 			modifyStock(Integer.parseInt(tfMenuNo.getText()), Integer.parseInt(tfStock.getText()));
 		}else if(evt == bCancel){
-			JOptionPane.showMessageDialog(null, "취소");
+			new MyDialog(null, "취소");
 			tfMenuNo.setText("");
 			tfMenuName.setText("");
 			tfStock.setText("");
@@ -346,7 +346,7 @@ public class StockView extends JPanel implements ActionListener {
 		try {
 			int result = pm.modifyStockByNo(no, stock);
 			if(result == 0){
-				JOptionPane.showMessageDialog(null, "수정실패");
+				new MyDialog(null, "수정실패");
 			}else if(menu.equals("")){
 				tbModelStock.data = pm.searchTable();
 				tbStockList.setModel(tbModelStock);

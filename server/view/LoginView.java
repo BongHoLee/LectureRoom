@@ -142,10 +142,10 @@ public class LoginView extends JFrame implements ActionListener{
 		if(status == 0){
 			tfManId.setText("");
 			tfManPw.setText("");
-			JOptionPane.showMessageDialog(null, "ID를 다시 확인하세요");
+			new MyDialog(null, "ID를 다시 확인하세요");
 		}else if(status == 1){
 			tfManPw.setText("");
-			JOptionPane.showMessageDialog(null, "PW를 확인하세요");
+			new MyDialog(null, "PW를 확인하세요");
 		}else if(status == 2){
 			new MyDialog(null, "로그인 성공!");
 			sm = new ServerMain();			//로그인 성공시 ServerMain 구동

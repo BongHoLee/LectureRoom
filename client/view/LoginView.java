@@ -150,14 +150,14 @@ public class LoginView extends JFrame implements ActionListener {
 		if (status == 0){ // ID조차 없는 경우
 			tfCustId.setText("");
 			tfCustPw.setText("");
-			JOptionPane.showMessageDialog(null, "없는 ID 입니다");
+			new MyDialog(null, "없는 ID 입니다");
 		}
 		else if (status == 1){ // ID는 있지만 PW가 틀린경우
 			tfCustPw.setText("");
-			JOptionPane.showMessageDialog(null, "PW가 틀렸습니다.");
+			new MyDialog(null, "PW가 틀렸습니다.");
 		}
 		else if (status == 2){ // ID와 PW가 일치하는경우.
-			JOptionPane.showMessageDialog(null, "로그인 성공!");
+			new MyDialog(null, "로그인 성공!");
 			dispose();
 			cm = new ClientMain(cus.getC_id());
 		}

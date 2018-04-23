@@ -160,7 +160,7 @@ public class FoodView extends JPanel implements ActionListener {
 			try {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
-					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+					new MyDialog(null, "재고가 없습니다.");
 				}else{									//주문한 목록을 ArrayList에 담는다.
 					Order order = new Order();
 					order.setPro_no(pro_no);
@@ -179,7 +179,7 @@ public class FoodView extends JPanel implements ActionListener {
 			try {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
-					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+					new MyDialog(null, "재고가 없습니다.");
 				}else{									//주문한 목록을 ArrayList에 담는다.
 					Order order = new Order();
 					order.setPro_no(pro_no);
@@ -197,7 +197,7 @@ public class FoodView extends JPanel implements ActionListener {
 			try {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
-					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+					new MyDialog(null, "재고가 없습니다.");
 				}else{									//주문한 목록을 ArrayList에 담는다.
 					Order order = new Order();
 					order.setPro_no(pro_no);
@@ -215,7 +215,7 @@ public class FoodView extends JPanel implements ActionListener {
 			try {
 				boolean check = om.ChooseMenu(pro_no);
 				if(check == false){
-					JOptionPane.showMessageDialog(null, "재고가 없습니다.");
+					new MyDialog(null, "재고가 없습니다.");
 				}else{									//주문한 목록을 ArrayList에 담는다.
 					Order order = new Order();
 					order.setPro_no(pro_no);
