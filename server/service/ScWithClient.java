@@ -64,13 +64,14 @@ public class ScWithClient implements Runnable {
 		System.out.println("FLAG 갱신 완료");
 	}
 
-	// USE_PC 테이블에 Use_no, C_id, pc_no, m_id 입력(아직 나머지는 null)
+	// USE_PC 테이블에 입력(아직 나머지는 null)
 	public void insertUsePc() {
 		usepc.setC_id(cus.getC_id());
 		usepc.setPc_no(pcinfo.getPc_no());
 		usepc.setM_id("manager");
+		usepc.setUsetime(0);
 		usepcmodel.insertByVo(usepc);
-
+		
 	}
 
 	public void updateSeat() {
@@ -129,11 +130,16 @@ public class ScWithClient implements Runnable {
 		try {
 			System.out.println(usepc.getPc_no() + "번 PC 종료");
 			pan.setSeatInfo(0);
+			usepcmodel.calPc(usepc);											//use_pc 테이블 관련 갱신
+			new MyDialog(null, usepc.getPc_no()+"번 PC가 종료되었습니다. \n사용자 ID : "+usepc.getC_id()+"\n총 금액 : " + usepc.getUsetotal());
 			output.close();
 			input.close();
 			connection.close();
 			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -152,7 +158,6 @@ public class ScWithClient implements Runnable {
 			insertUsePc(); // USE_PC 테이블에 INSERT
 			updateSeat();
 			receiveProtocol();
-			//Thread.sleep(10000);
 			System.out.println("종료가 되었습니다.");
 		}  catch (IOException e) {
 			System.out.println("클라이언트와 스트림 연결 에러");

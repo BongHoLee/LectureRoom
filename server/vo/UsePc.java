@@ -4,6 +4,7 @@ public class UsePc {
 	String c_id;
 	String clientIp;
 	String m_id;
+	int use_no;
 	int pc_no;
 	int usetime;
 	int usecharge;
@@ -50,6 +51,13 @@ public class UsePc {
 	}
 	public void setUsetotal(int usetotal) {
 		this.usetotal = usetotal;
+	}
+	
+	public int getUse_no() {
+		return use_no;
+	}
+	public void setUse_no(int use_no) {
+		this.use_no = use_no;
 	}
 	
 
