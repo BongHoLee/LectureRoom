@@ -122,7 +122,8 @@ public class PanSeat extends JPanel implements MouseListener {
     public void eventProc(){
     	panContent.addMouseListener(this);
     }
-
+    
+    //좌석 클릭시 채팅창 띄워진다.
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object evt = e.getSource();

@@ -23,7 +23,7 @@ public class ScWithClient implements Runnable {
 
 	Socket connection; // 클라이언트와 연결시 생성되는 소켓
 	PanSeat pan;
-	ObjectOutputStream output; // 소켓 통신시 메시지를 전달할 스트림 객체
+	public static ObjectOutputStream output; // 소켓 통신시 메시지를 전달할 스트림 객체
 	ObjectInputStream input; // 소켓 통신시 메시지를 전달받을 스트림 객체
 
 	public ScWithClient(Socket socket, PanSeat pan) throws IOException, SQLException {
@@ -93,6 +93,9 @@ public class ScWithClient implements Runnable {
 					Runnable r = new OrderTh(list);					
 				}
 				//2. 채팅 메시지일시
+				if(protocol.getState() == protocol.Chatting_Message){
+					
+				}
 				
 				//3. 종료 메시지일시.
 			System.out.println("서버입니다. 클라이언트가 보낸 프로토콜을 받았어요 "+ protocol.getState());
@@ -102,6 +105,16 @@ public class ScWithClient implements Runnable {
 				System.out.println("서버인데요.. 클라이언트가 보낸 프로토콜을 못받았어요..");
 				System.exit(0);
 			}
+		}
+	}
+	
+	//클라이언트에게 프로토콜을 전송한다.
+	public static void sendProtocol(ClientProtocol pro){
+		try {
+			output.writeObject(pro);
+			output.flush();
+		} catch (IOException e) {
+			System.out.println(e.getMessage() + " 클라이언트에게 메시지 보내는 도중 오류");
 		}
 	}
 	
