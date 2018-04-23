@@ -108,6 +108,7 @@ public class LoginView extends JFrame implements ActionListener{
 		add(panel);
 		setVisible(true);
 		
+		
 	}
 	
 	public void eventProc(){
@@ -146,7 +147,7 @@ public class LoginView extends JFrame implements ActionListener{
 			tfManPw.setText("");
 			JOptionPane.showMessageDialog(null, "PW를 확인하세요");
 		}else if(status == 2){
-			JOptionPane.showMessageDialog(null, "로그인 성공!");
+			new MyDialog(null, "로그인 성공!");
 			sm = new ServerMain();			//로그인 성공시 ServerMain 구동
 			dispose();
 		}
