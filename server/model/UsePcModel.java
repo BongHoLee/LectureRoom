@@ -5,13 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import server.vo.Sales;
 import server.vo.UsePc;
 
 //접속한 클라이언트의 정보를 받아서 USE_PC 테이블을 조작하는 모델.
 //넘겨받는 인자는 주로 UsePc 객체를 넘겨받아서 갱신
 public class UsePcModel {
 	private Connection con;
-	
+	Sales sales;
 	//DB에 연동시킴
 	public UsePcModel() throws SQLException {
 		con = DBCon.getConnection();
@@ -63,6 +64,24 @@ public class UsePcModel {
 		ps5.setInt(1, uc.getUse_no());
 		ps5.executeUpdate();
 		ps5.close();
+		
+		//sales_daily값 구해와서 daily에 저장
+		String sql6 = "SELECT sales_daily FROM sales WHERE to_char(sales_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')";
+		PreparedStatement ps6 = con.prepareStatement(sql6);
+		ResultSet rs6 = ps6.executeQuery();
+		sales = new Sales();
+		if(rs6.next()){
+			sales.setSales_daily(rs6.getInt(1));
+		}
+		ps6.close();
+		System.out.println(uc.getUsetotal());
+		System.out.println(sales.getSales_daily());
+		//구해온 일일매출에 use_total값을 더해서 다시 sales_daily의 값을 갱신
+		String sql7 = "UPDATE sales SET sales_daily = ? WHERE to_char(sales_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')";
+		PreparedStatement ps7 = con.prepareStatement(sql7);
+		ps7.setInt(1, uc.getUsetotal() + sales.getSales_daily());
+		ps7.executeUpdate();
+		ps7.close();
 		
 	}
 	

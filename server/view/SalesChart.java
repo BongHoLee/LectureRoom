@@ -39,6 +39,7 @@ public class SalesChart extends JPanel {
 	public SalesChart(String applicationTitle, String chartTitle) throws ClassNotFoundException, SQLException {
 		Class.forName(driver); // 1. 드라이버 로딩
 		con = DriverManager.getConnection(url, user, passw);
+		
 
 		// based on the dataset we create the chart
 		JFreeChart pieChart = ChartFactory.createBarChart(chartTitle, "Date", "Sales", createDataset(),

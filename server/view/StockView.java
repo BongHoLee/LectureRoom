@@ -225,10 +225,10 @@ public class StockView extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object evt = e.getSource();
 		if(evt == bModify){
-			JOptionPane.showMessageDialog(null, "재고 수정");
+			new MyDialog(null, "재고 수정");
 			modifyStock(Integer.parseInt(tfMenuNo.getText()), Integer.parseInt(tfStock.getText()));
 		}else if(evt == bCancel){
-			JOptionPane.showMessageDialog(null, "취소");
+			new MyDialog(null, "취소");
 			tfMenuNo.setText("");
 			tfMenuName.setText("");
 			tfStock.setText("");
