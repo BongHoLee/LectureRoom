@@ -181,13 +181,17 @@ public class UseInfoView extends JPanel implements ActionListener {
 			ClientProtocol proto = new ClientProtocol();
 			proto.setState(ClientProtocol.EXIT);
 			ScWithServer.sendProtocol(proto);
-//			try {
-//				Thread.sleep(3000);
-//			} catch (InterruptedException e1) {
+
+//		    
+//		    try {
+//		    	Runtime runtime = Runtime.getRuntime();
+//				Process proc = runtime.exec("shutdown -s -t 0");
+//			} catch (IOException e1) {
 //				// TODO Auto-generated catch block
 //				e1.printStackTrace();
 //			}
-			System.exit(0);
+		    System.exit(0);
+			
 		}
 		
 	}
