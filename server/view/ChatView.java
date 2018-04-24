@@ -113,7 +113,7 @@ public class ChatView extends JFrame implements ActionListener {
 		
 		panel.add(mp);
 		add(panel);
-		setVisible(true);
+		//setVisible(true);
 		
 	}
 	

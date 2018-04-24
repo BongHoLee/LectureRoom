@@ -56,8 +56,10 @@ public class ScWithClient implements Runnable {
 		String c_id = (String) input.readObject(); // 클라이언트로부터 C_id를 받음
 		pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress())); // IP를	 이용해 PC_NO를 얻어옴		
 		pcinfo.setPc_ip(connection.getInetAddress().toString()); // pcinfo 객체에 pc_no, pc_ip 저장
-											
 		cus.setC_id(c_id); // 현재 사용중인 C_id 저장
+		
+		cv = new ChatView();
+		ServerSc.chatMap.put(pcinfo.getPc_no(), cv);
 	}
 
 	// PC테이블의 FLAG를 업데이트 하기 위한 메소드
@@ -104,7 +106,8 @@ public class ScWithClient implements Runnable {
 				}
 				//2. 채팅 메시지일시
 				if(protocol.getState() == protocol.Chatting_Message){
-					cv = AccessChat.chat();
+					ChatView cv = ServerSc.chatMap.get(pcinfo.getPc_no());
+					//cv = AccessChat.chat();
 					cv.setVisible(true);
 					String message = (String)protocol.getData();
 					cv.taChatAll.append("고객  -: " + message + " \n");

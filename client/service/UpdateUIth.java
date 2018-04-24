@@ -44,10 +44,10 @@ public class UpdateUIth implements Runnable {
 				uv.tfUseCharge.setText(String.valueOf(usepc.getUsecharge()+100) + " 원");
 				Thread.sleep(6000);							//60초간 대기후 실행
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("좌석 갱신 스레드가 참조하는 SQL Connection이 종료되었습니다.");
 			}  					
 			catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("좌석 갱신 스레드가 종료되었습니다.");
 			}
 
 		}
