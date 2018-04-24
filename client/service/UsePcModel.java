@@ -17,9 +17,9 @@ public class UsePcModel {
 	
 	//고객 사용시간 및 사용금액을 가져오기 위한 메소드
 	public void updateUI(UsePc usepc) throws SQLException{
-		String sql = "SELECT use_time, use_charge FROM use_pc WHERE use_flag=0 AND c_id=?";
+		String sql = "SELECT use_time, use_charge FROM use_pc WHERE use_flag=0 AND use_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, usepc.getC_id());
+		ps.setInt(1, usepc.getUse_no());
 		ResultSet rs = ps.executeQuery();
 		if(rs.next()){
 			usepc.setUsetime(rs.getInt("use_time"));
