@@ -30,6 +30,7 @@ public class UseInfoView extends JPanel implements ActionListener {
 	public JLabel lUseNo, lUseTime, lUseCharge;
 	public JTextField tfUseNo, tfUseTime, tfUseCharge;
 	public JButton bChat, bLogout;
+	public JButton bKaKao, bChrom, bExplo, bMemo;
 	public PcInfoModel pcinfomodel;
 	public ChatView cv;
 	
@@ -52,6 +53,10 @@ public class UseInfoView extends JPanel implements ActionListener {
 		
 		bChat = new JButton("관리자채팅");
 		bLogout = new JButton("로그아웃");
+		bKaKao = new JButton();
+		bChrom = new JButton();
+		bExplo = new JButton();
+		bMemo = new JButton();
 		
 		
 		
@@ -190,6 +195,18 @@ public class UseInfoView extends JPanel implements ActionListener {
 //				// TODO Auto-generated catch block
 //				e1.printStackTrace();
 //			}
+			
+			Runtime rt = Runtime.getRuntime();
+			String exeFile = "C:\\Program Files (x86)\\Kakao\\KakaoTalk\\KakaoTalk.exe";
+			System.out.println("exeFile: " + exeFile);
+			Process p;
+			             
+			try {
+			    p = rt.exec(exeFile);
+			    p.waitFor();
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
 		    System.exit(0);
 			
 		}
