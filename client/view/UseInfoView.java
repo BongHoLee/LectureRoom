@@ -192,6 +192,10 @@ public class UseInfoView extends JPanel implements ActionListener {
 	public void eventProc(){
 		bChat.addActionListener(this);
 		bLogout.addActionListener(this);
+		bKaKao.addActionListener(this);
+		bChrom.addActionListener(this);
+		bExplo.addActionListener(this);
+		bMemo.addActionListener(this);
 	}
 	
 	// 이미지가 들어갈 패널을 생성하는 이너클래스
@@ -221,6 +225,9 @@ public class UseInfoView extends JPanel implements ActionListener {
 //				e1.printStackTrace();
 //			}
 			
+		    System.exit(0);
+			
+		}else if(obj == bKaKao){
 			Runtime rt = Runtime.getRuntime();
 			String exeFile = "C:\\Program Files (x86)\\Kakao\\KakaoTalk\\KakaoTalk.exe";
 			System.out.println("exeFile: " + exeFile);
@@ -232,8 +239,44 @@ public class UseInfoView extends JPanel implements ActionListener {
 			} catch (Exception ex) {
 			    ex.printStackTrace();
 			}
-		    System.exit(0);
+		}else if(obj == bChrom){
+			Runtime rt = Runtime.getRuntime();
+			String exeFile = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+			System.out.println("exeFile: " + exeFile);
+			Process p;
+			             
+			try {
+			    p = rt.exec(exeFile);
+			    p.waitFor();
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
+		}else if(obj == bMemo){
+			Runtime rt = Runtime.getRuntime();
+			String exeFile = "C:\\Windows\\System32\\notepad.exe";
+			System.out.println("exeFile: " + exeFile);
+			Process p;
+			             
+			try {
+			    p = rt.exec(exeFile);
+			    p.waitFor();
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
 			
+		}else if(obj == bExplo){
+		
+			Runtime rt = Runtime.getRuntime();
+			String exeFile = "C:\\Program Files\\Internet Explorer\\iexplore.exe";
+			System.out.println("exeFile: " + exeFile);
+			Process p;
+			             
+			try {
+			    p = rt.exec(exeFile);
+			    p.waitFor();
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
 		}
 		
 	}
