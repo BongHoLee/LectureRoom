@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import server.model.PcInfoModel;
+import server.view.ChatView;
 import server.view.PanSeat;
 import server.view.SeatView;
 import server.vo.PcInfo;
@@ -15,6 +16,7 @@ import server.vo.PcInfo;
 
 //클라이언트의 접속을 대기하는 스레드
 public class ServerSc implements Runnable{
+	public static HashMap<Integer, ChatView> chatMap;
 	ServerSocket serverSocket;							//클라이언트와의 통신을 위한 서버 소켓
 	Socket connection;										//클라이언트 접속시 생성되는 소켓
 	SeatView sv;												//SeatView를 넘겨받음
@@ -25,7 +27,7 @@ public class ServerSc implements Runnable{
 	
 	public ServerSc(SeatView sv){
 		try {
-
+			this.chatMap = new HashMap();					//클라이언트의 채팅 뷰를 담음
 			this.sv = sv;
 			panArr = sv.getPan();												//좌석 객체배열 가져오
 			serverSocket = new ServerSocket(6789);

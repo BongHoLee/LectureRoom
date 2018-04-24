@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+
+import server.service.ServerSc;
  
 public class PanSeat extends JPanel implements MouseListener {
     private BufferedImage img = null;
@@ -129,7 +131,8 @@ public class PanSeat extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		Object evt = e.getSource();
 		if(evt == panContent){
-			ChatV = AccessChat.chat();
+			ChatV = ServerSc.chatMap.get(this.numSeat+1);
+			ChatV.setVisible(true);
 		}
 	}
 

@@ -176,6 +176,7 @@ public class UseInfoView extends JPanel implements ActionListener {
 		Object obj = e.getSource();
 		if(obj == bChat){
 			cv = AccessChat.chat();
+			cv.setVisible(true);
 		}else if(obj == bLogout){
 			ClientProtocol proto = new ClientProtocol();
 			proto.setState(ClientProtocol.EXIT);
