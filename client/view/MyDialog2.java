@@ -6,6 +6,8 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -89,6 +91,21 @@ public class MyDialog2 extends JDialog implements ActionListener {
 	
 	public void eventProc(){
 		bOK.addActionListener(this);
+		
+		bOK.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bOK.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bOK.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bOK.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
 	}
 	
 	// 이미지가 들어갈 패널을 생성하는 이너클래스

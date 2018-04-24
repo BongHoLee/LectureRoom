@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -114,6 +116,36 @@ public class OrderView extends JPanel implements ActionListener {
 	public void eventProc(){
 		bCharge.addActionListener(this);
 		bCancel.addActionListener(this);
+		
+		bCharge.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bCharge.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bCharge.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bCharge.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
+		
+		bCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
 	}
 	
 	// 이미지가 들어갈 패널을 생성하는 이너클래스

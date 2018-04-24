@@ -86,6 +86,8 @@ public class FoodView extends JPanel implements ActionListener {
 		bFood_1.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bFood_1.setFocusPainted(false);
 		bFood_1.setContentAreaFilled(false);
+		bFood_1.setRolloverIcon(new ImageIcon("src/img/noodle_roll.png"));
+		bFood_1.setPressedIcon(new ImageIcon("src/img/noodle_press.png"));
 		p_food.add(bFood_1);
 		
 		bFood_2.setBounds(120, 30, 70, 70);
@@ -93,6 +95,8 @@ public class FoodView extends JPanel implements ActionListener {
 		bFood_2.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bFood_2.setFocusPainted(false);
 		bFood_2.setContentAreaFilled(false);
+		bFood_2.setRolloverIcon(new ImageIcon("src/img/fried-rice_roll.png"));
+		bFood_2.setPressedIcon(new ImageIcon("src/img/fried-rice_press.png"));
 		p_food.add(bFood_2);
 		
 		bFood_3.setBounds(210, 30, 70, 70);
@@ -100,6 +104,8 @@ public class FoodView extends JPanel implements ActionListener {
 		bFood_3.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bFood_3.setFocusPainted(false);
 		bFood_3.setContentAreaFilled(false);
+		bFood_3.setRolloverIcon(new ImageIcon("src/img/burger_roll.png"));
+		bFood_3.setPressedIcon(new ImageIcon("src/img/burger_press.png"));
 		p_food.add(bFood_3);
 		
 		bFood_4.setBounds(300, 30, 70, 70);
@@ -107,6 +113,8 @@ public class FoodView extends JPanel implements ActionListener {
 		bFood_4.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bFood_4.setFocusPainted(false);
 		bFood_4.setContentAreaFilled(false);
+		bFood_4.setRolloverIcon(new ImageIcon("src/img/hotdog_roll.png"));
+		bFood_4.setPressedIcon(new ImageIcon("src/img/hotdog_press.png"));
 		p_food.add(bFood_4);
 		
 		lFood_1.setBounds(45, 110, 60, 30);

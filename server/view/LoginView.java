@@ -5,12 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -114,6 +117,20 @@ public class LoginView extends JFrame implements ActionListener{
 	public void eventProc(){
 		bManLogin.addActionListener(this);
 		tfManPw.addActionListener(this);
+		bManLogin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bManLogin.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bManLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bManLogin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
 	}
 	
 	@Override

@@ -219,6 +219,21 @@ public class StockView extends JPanel implements ActionListener {
 				}
 			}
 		});
+		
+		bCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
 	}
 	
 	@Override
