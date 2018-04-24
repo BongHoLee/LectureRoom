@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -53,10 +54,10 @@ public class UseInfoView extends JPanel implements ActionListener {
 		
 		bChat = new JButton("관리자채팅");
 		bLogout = new JButton("로그아웃");
-		bKaKao = new JButton();
-		bChrom = new JButton();
-		bExplo = new JButton();
-		bMemo = new JButton();
+		bKaKao = new JButton(new ImageIcon("src/img/kakao.png"));
+		bChrom = new JButton(new ImageIcon("src/img/chrome.png"));
+		bExplo = new JButton(new ImageIcon("src/img/explorer.png"));
+		bMemo = new JButton(new ImageIcon("src/img/notepad.png"));
 		
 		
 		
@@ -80,6 +81,30 @@ public class UseInfoView extends JPanel implements ActionListener {
 		p_info.setBounds(0, 0, 400, 200);
 		p_info.setLayout(null);
 		p_info.setOpaque(false);
+		
+		bKaKao.setBounds(30, 30, 50, 50);
+		bKaKao.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		bKaKao.setFocusPainted(false);
+		bKaKao.setContentAreaFilled(false);
+		p_info.add(bKaKao);
+		
+		bMemo.setBounds(110, 30, 50, 50);
+		bMemo.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		bMemo.setFocusPainted(false);
+		bMemo.setContentAreaFilled(false);
+		p_info.add(bMemo);
+		
+		bChrom.setBounds(30, 120, 50, 50);
+		bChrom.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		bChrom.setFocusPainted(false);
+		bChrom.setContentAreaFilled(false);
+		p_info.add(bChrom);
+		
+		bExplo.setBounds(110, 120, 50, 50);
+		bExplo.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+		bExplo.setFocusPainted(false);
+		bExplo.setContentAreaFilled(false);
+		p_info.add(bExplo);
 		
 		lUseNo.setBounds(200, 10, 60, 30);
 		lUseNo.setOpaque(false);
