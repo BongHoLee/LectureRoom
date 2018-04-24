@@ -86,6 +86,8 @@ public class DrinkView extends JPanel implements ActionListener {
 		bDrink_1.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bDrink_1.setFocusPainted(false);
 		bDrink_1.setContentAreaFilled(false);
+		bDrink_1.setRolloverIcon(new ImageIcon("src/img/coffee_roll.png"));
+		bDrink_1.setPressedIcon(new ImageIcon("src/img/coffee_press.png"));
 		p_food.add(bDrink_1);
 		
 		bDrink_2.setBounds(120, 30, 70, 70);
@@ -93,6 +95,8 @@ public class DrinkView extends JPanel implements ActionListener {
 		bDrink_2.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bDrink_2.setFocusPainted(false);
 		bDrink_2.setContentAreaFilled(false);
+		bDrink_2.setRolloverIcon(new ImageIcon("src/img/coke-bottle_roll.png"));
+		bDrink_2.setPressedIcon(new ImageIcon("src/img/coke-bottle_press.png"));
 		p_food.add(bDrink_2);
 		
 		bDrink_3.setBounds(210, 30, 70, 70);
@@ -100,6 +104,8 @@ public class DrinkView extends JPanel implements ActionListener {
 		bDrink_3.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bDrink_3.setFocusPainted(false);
 		bDrink_3.setContentAreaFilled(false);
+		bDrink_3.setRolloverIcon(new ImageIcon("src/img/coke_roll.png"));
+		bDrink_3.setPressedIcon(new ImageIcon("src/img/coke_press.png"));
 		p_food.add(bDrink_3);
 		
 		bDrink_4.setBounds(300, 30, 70, 70);
@@ -107,6 +113,8 @@ public class DrinkView extends JPanel implements ActionListener {
 		bDrink_4.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
 		bDrink_4.setFocusPainted(false);
 		bDrink_4.setContentAreaFilled(false);
+		bDrink_4.setRolloverIcon(new ImageIcon("src/img/beverage_roll.png"));
+		bDrink_4.setPressedIcon(new ImageIcon("src/img/beverage_press.png"));
 		p_food.add(bDrink_4);
 		
 		lDrink_1.setBounds(45, 110, 60, 30);

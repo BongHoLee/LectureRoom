@@ -123,6 +123,36 @@ public class SignInView extends JFrame implements ActionListener{
 	public void eventProc(){
 		bCancel.addActionListener(this);
 		bCustSignIn.addActionListener(this);
+		
+		bCustSignIn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bCustSignIn.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bCustSignIn.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bCustSignIn.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
+		
+		bCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.WHITE));;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				bCancel.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(36, 205, 198)));
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				bCancel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+			}
+		});
 	}
 	
 	@Override
