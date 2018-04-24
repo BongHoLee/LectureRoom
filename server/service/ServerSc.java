@@ -41,12 +41,7 @@ public class ServerSc implements Runnable{
 	
 	//좌석 번호에 해당하는 pan객체를 가져오기 위함.
 	public void setPanSeat() throws SQLException{
-		this.pcinfomodel = new PcInfoModel();
-		this.pcinfo = new PcInfo();
-		pcinfo.setPc_ip(connection.getInetAddress().toString());
-		pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress()));
-		this.pan = panArr[pcinfo.getPc_no()-1];
-		System.out.println(this.pan.getNumSeat());
+
 	}
 	
 
@@ -55,10 +50,17 @@ public class ServerSc implements Runnable{
 	public void run() {				//스레드의 메인 실행 부
 		while(true){
 			try{
-				connection = serverSocket.accept();							//클라이언트의 접속을 대기
-				setPanSeat();
+				Socket connection = serverSocket.accept();							//클라이언트의 접속을 대기
+				this.pcinfomodel = new PcInfoModel();
+				this.pcinfo = new PcInfo();
+				pcinfo.setPc_ip(connection.getInetAddress().toString());
+				pcinfo.setPc_no(pcinfomodel.selectPcNo(connection.getInetAddress()));
+				this.pan = panArr[pcinfo.getPc_no()-1];
+				System.out.println(this.pan.getNumSeat());
 				ScWithClient sc = new ScWithClient(connection, this.pan);		//클라이언트 접속시 
 																								//실행 스레드에게 소켓, 좌석 객체 전달
+				//ChatView cv = new ChatView(connection);
+				//chatMap.put(pcinfo.getPc_no(), cv);
 			}catch(Exception ex){
 				System.out.println("일단 뭔가 잘못된거긴 함");
 			}

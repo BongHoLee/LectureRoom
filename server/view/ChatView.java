@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -32,12 +35,17 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	public JLabel LPCno;
 	public JLabel LChat;
+	Socket connection;
+	ObjectOutputStream output; // 소켓 통신시 메시지를 전달할 스트림 객체
+	
 	
 	BufferedImage img = null;	//	이미지를 담는 버퍼드 이미지 객체 선언
 	
 	
 	
-	public ChatView() {
+	public ChatView(Socket connection, ObjectOutputStream output) throws IOException {
+		this.connection = connection;
+		this.output = output;
 		addLayout();
 		eventProc();
 	}
@@ -135,13 +143,21 @@ public class ChatView extends JFrame implements ActionListener {
 	
 	//보내기 버튼이 눌렸을 때 실행되는 메소드
 	public void send(){
-		ClientProtocol proto = new ClientProtocol();					//프로토콜을 생성
-		String str = tfChat.getText();
-		proto.setData(str);
-		proto.setState(ClientProtocol.Chatting_Message);  			//채팅 메시지임을 알리는 상태
-		ScWithClient.sendProtocol(proto); 								//클라이언트에게 프로토콜 전송
-		tfChat.setText("");
-		taChatAll.append("관리자 - : " + str + "\n");
+
+		try {
+			ClientProtocol proto = new ClientProtocol();					//프로토콜을 생성
+			String str = tfChat.getText();
+			proto.setData(str);
+			proto.setState(ClientProtocol.Chatting_Message);  			//채팅 메시지임을 알리는 상태
+			//ScWithClient.sendProtocol(proto); 								//클라이언트에게 프로토콜 전송
+			output.writeObject(proto);
+			tfChat.setText("");
+			taChatAll.append("관리자 - : " + str + "\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		
 	}

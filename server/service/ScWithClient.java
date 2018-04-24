@@ -27,7 +27,7 @@ public class ScWithClient implements Runnable {
 
 	Socket connection; // 클라이언트와 연결시 생성되는 소켓
 	PanSeat pan;
-	public static ObjectOutputStream output; // 소켓 통신시 메시지를 전달할 스트림 객체
+	ObjectOutputStream output; // 소켓 통신시 메시지를 전달할 스트림 객체
 	ObjectInputStream input; // 소켓 통신시 메시지를 전달받을 스트림 객체
 
 	public ScWithClient(Socket socket, PanSeat pan) throws IOException, SQLException {
@@ -58,8 +58,10 @@ public class ScWithClient implements Runnable {
 		pcinfo.setPc_ip(connection.getInetAddress().toString()); // pcinfo 객체에 pc_no, pc_ip 저장
 		cus.setC_id(c_id); // 현재 사용중인 C_id 저장
 		
-		cv = new ChatView();
+		//채팅뷰를 만들어서 hashMap에 넣어준다.
+		cv = new ChatView(connection, output);
 		ServerSc.chatMap.put(pcinfo.getPc_no(), cv);
+		this.cv = ServerSc.chatMap.get(pcinfo.getPc_no());
 	}
 
 	// PC테이블의 FLAG를 업데이트 하기 위한 메소드
@@ -106,7 +108,7 @@ public class ScWithClient implements Runnable {
 				}
 				//2. 채팅 메시지일시
 				if(protocol.getState() == protocol.Chatting_Message){
-					ChatView cv = ServerSc.chatMap.get(pcinfo.getPc_no());
+					//ChatView cv1 = ServerSc.chatMap.get(usepc.getPc_no());
 					//cv = AccessChat.chat();
 					cv.setVisible(true);
 					String message = (String)protocol.getData();
@@ -125,6 +127,7 @@ public class ScWithClient implements Runnable {
 				//System.out.println("서버입니다. 클라이언트가 보낸 프로토콜입니다 : + " +protocol);
 			} catch (Exception  e) {
 				System.out.println(e.getMessage());
+				e.printStackTrace();
 				System.out.println("서버인데요.. 클라이언트가 보낸 프로토콜을 못받았어요..");
 				System.exit(0);
 			}
@@ -132,7 +135,7 @@ public class ScWithClient implements Runnable {
 	}
 	
 	//클라이언트에게 프로토콜을 전송한다.
-	public static void sendProtocol(ClientProtocol pro){
+	public void sendProtocol(ClientProtocol pro){
 		try {
 			output.writeObject(pro);
 			output.flush();
@@ -193,6 +196,8 @@ public class ScWithClient implements Runnable {
 			e.printStackTrace();
 		}finally{
 			closeSoc();					//최종적으로 소켓을 종료
+			ServerSc.chatMap.remove(usepc.getC_id());
+			System.out.println("hashMap에서 chatView가 제거되었습니다.");
 			System.out.println("서버소켓이 종료되었습니다.");
 		}
 
