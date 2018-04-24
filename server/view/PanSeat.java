@@ -131,7 +131,7 @@ public class PanSeat extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		Object evt = e.getSource();
 		if(evt == panContent){
-			ChatV = ServerSc.chatMap.get(this.numSeat+1);
+			ChatV = ServerSc.chatMap.get(this.numSeat);
 			ChatV.setVisible(true);
 		}
 	}

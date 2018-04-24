@@ -37,10 +37,10 @@ public class UpdateUIth implements Runnable {
 				int hour = 0;
 				int min = usepc.getUsetime();
 				
-//				if(min/60 != 0){
-//					hour = min/60;
-//					min = min%60;
-//				}
+				if(min/60 != 0){
+					hour = min/60;
+					min = min%60;
+				}
 				
 				
 				uv.tfUseTime.setText(hour + "시간 " + min + "분");

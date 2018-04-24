@@ -19,6 +19,7 @@ public class ClientMain {
 		this.c_id = c_id;
 		Runnable r = new ScWithServer(this.c_id);		//접속한 클라이언트의ID를 넘겨주고 스레드 실행
 		mv = new MainView();						//클라이언트 메인 뷰를 띄운다.
+		new MyDialog2(null, this.c_id+"님 환영합니다.");
 		
 		
 		

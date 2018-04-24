@@ -104,6 +104,10 @@ public class ScWithClient implements Runnable {
 				//1. 주문시 order_pro 테이블을 갱신하는 OrderTh 스레드 호출 및 실행
 				if(protocol.getState() == protocol.Order_Send){
 					ArrayList<Order> list = (ArrayList)protocol.getData();
+					StringBuffer sb = new StringBuffer();
+					for(Order order : list){
+						
+					}
 					Runnable r = new OrderTh(list);					
 				}
 				//2. 채팅 메시지일시
@@ -170,6 +174,10 @@ public class ScWithClient implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void welCom(){
+		new MyDialog2(null, usepc.getPc_no()+"번 자리에 "+usepc.getC_id()+" 님이 접속하셨습니다.");
+	}
 
 	@Override
 	// 클라이언트와 연결이 되었으니 이제 통신을 하면 된다.
@@ -183,6 +191,7 @@ public class ScWithClient implements Runnable {
 			updatePcFlag(); // PC테이블의 Flag를 1로 갱신
 			insertUsePc(); // USE_PC 테이블에 INSERT
 			updateSeat();		//좌석 정보 갱신
+			welCom(); 			//환영메시지
 			receiveProtocol();
 			System.out.println("종료가 되었습니다.");
 		}  catch (IOException e) {
