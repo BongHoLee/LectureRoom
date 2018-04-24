@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -48,15 +49,15 @@ public class DrinkView extends JPanel implements ActionListener {
 	}
 	
 	public void addLayout(){
-		bDrink_1 = new JButton("커피");
-		bDrink_2 = new JButton("콜라");
-		bDrink_3 = new JButton("사이다");
-		bDrink_4 = new JButton("환타");
+		bDrink_1 = new JButton(new ImageIcon("src/img/coffee.png"));
+		bDrink_2 = new JButton(new ImageIcon("src/img/coke-bottle.png"));
+		bDrink_3 = new JButton(new ImageIcon("src/img/coke.png"));
+		bDrink_4 = new JButton(new ImageIcon("src/img/beverage.png"));
 		
-		lDrink_1 = new JLabel("음료1");
-		lDrink_2 = new JLabel("음료2");
-		lDrink_3 = new JLabel("음료3");
-		lDrink_4 = new JLabel("음료4");
+		lDrink_1 = new JLabel("커피");
+		lDrink_2 = new JLabel("콜라");
+		lDrink_3 = new JLabel("사이다");
+		lDrink_4 = new JLabel("환타");
 		
 		
 		try {

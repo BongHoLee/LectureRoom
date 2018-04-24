@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -48,15 +49,15 @@ public class FoodView extends JPanel implements ActionListener {
 	}
 	
 	public void addLayout(){
-		bFood_1 = new JButton("라면");
-		bFood_2 = new JButton("볶음밥");
-		bFood_3 = new JButton("햄버거");
-		bFood_4 = new JButton("핫도그");
+		bFood_1 = new JButton(new ImageIcon("src/img/noodle.png"));
+		bFood_2 = new JButton(new ImageIcon("src/img/fried-rice.png"));
+		bFood_3 = new JButton(new ImageIcon("src/img/burger.png"));
+		bFood_4 = new JButton(new ImageIcon("src/img/hotdog.png"));
 		
-		lFood_1 = new JLabel("음식1");
-		lFood_2 = new JLabel("음식2");
-		lFood_3 = new JLabel("음식3");
-		lFood_4 = new JLabel("음식4");
+		lFood_1 = new JLabel("라면");
+		lFood_2 = new JLabel("볶음밥");
+		lFood_3 = new JLabel("햄버거");
+		lFood_4 = new JLabel("핫도그");
 		
 		
 		try {

@@ -140,16 +140,20 @@ public class OrderView extends JPanel implements ActionListener {
 			ScWithServer.sendProtocol(protocol);				//스레드의 Protocol 전달 메소드 실행
 			orderList.clear();
 			
-													//취소 버튼을 눌렀을시 주문목록에 있는 수만큼 다시 update
-		}else if(evt == bCancel){				//취소 버튼을 눌렀을시 주문목록 지워줌
+			new MyDialog(null, "결제가 완료되었습니다");
+			taTotalMenu.setText("");
+			tfTotalPrice.setText("0");
+			
+													
+		}else if(evt == bCancel){				
 			try {
-				om.cancelOrder(orderList);	
+				om.cancelOrder(orderList);		//취소 버튼을 눌렀을시 주문목록에 있는 수만큼 다시 update
 				System.out.println("주문 취소 완료.");
 				taTotalMenu.setText("");
 				tfTotalPrice.setText("0");
 			} catch (SQLException e1) {
 			}
-			orderList.clear();
+			orderList.clear();		//취소 버튼을 눌렀을시 주문목록 지워줌
 		}
 		
 	}
