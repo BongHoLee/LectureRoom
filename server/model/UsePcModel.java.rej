@@ -1,0 +1,17 @@
+diff a/server/model/UsePcModel.java b/server/model/UsePcModel.java	(rejected hunks)
+@@ -5,13 +5,14 @@
+ import java.sql.ResultSet;
+ import java.sql.SQLException;
+ 
++import server.vo.Sales;
+ import server.vo.UsePc;
+ 
+ //접속한 클라이언트의 정보를 받아서 USE_PC 테이블을 조작하는 모델.
+ //넘겨받는 인자는 주로 UsePc 객체를 넘겨받아서 갱신
+ public class UsePcModel {
+ 	private Connection con;
+-	
++	Sales sales;
+ 	//DB에 연동시킴
+ 	public UsePcModel() throws SQLException {
+ 		con = DBCon.getConnection();
