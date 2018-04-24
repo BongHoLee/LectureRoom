@@ -104,11 +104,7 @@ public class ScWithClient implements Runnable {
 				//1. 주문시 order_pro 테이블을 갱신하는 OrderTh 스레드 호출 및 실행
 				if(protocol.getState() == protocol.Order_Send){
 					ArrayList<Order> list = (ArrayList)protocol.getData();
-					StringBuffer sb = new StringBuffer();
-					for(Order order : list){
-						
-					}
-					Runnable r = new OrderTh(list);					
+					Runnable r = new OrderTh(list, pcinfo.getPc_no());					
 				}
 				//2. 채팅 메시지일시
 				if(protocol.getState() == protocol.Chatting_Message){

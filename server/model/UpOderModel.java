@@ -2,6 +2,7 @@ package server.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import server.vo.*;
 
@@ -22,6 +23,15 @@ public class UpOderModel {
 		ps.setInt(2, upor.getPro_no());
 		ps.executeUpdate();
 		ps.close();
+		
+		String sql2 = "SELECT pro_name FROM product WHERE pro_no=?";
+		PreparedStatement ps2 = con.prepareStatement(sql2);
+		ps2.setInt(1, upor.getPro_no());
+		ResultSet rs = ps2.executeQuery();
+		if(rs.next()){
+			upor.setPro_name(rs.getString("pro_name"));
+		}
+		ps2.close();
 	}
 	
 	
