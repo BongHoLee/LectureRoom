@@ -113,6 +113,9 @@ public class ScWithClient implements Runnable {
 				
 				//3. 종료 메시지일시.
 				if(protocol.getState() == protocol.EXIT){
+					ClientProtocol proto = new ClientProtocol();
+					proto.setState(proto.EXIT);
+					sendProtocol(proto);
 					break;
 				}
 			System.out.println("서버입니다. 클라이언트가 보낸 프로토콜을 받았어요 "+ protocol.getState());
@@ -187,6 +190,7 @@ public class ScWithClient implements Runnable {
 			e.printStackTrace();
 		}finally{
 			closeSoc();					//최종적으로 소켓을 종료
+			System.out.println("서버소켓이 종료되었습니다.");
 		}
 
 	}

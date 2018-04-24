@@ -56,6 +56,14 @@ public class UsePcModel {
 		ps4.setInt(1, uc.getPc_no());
 		ps4.executeUpdate();
 		ps4.close();
+		
+		//order_pro의 flag를 1로 바꿈
+		String sql5 = "UPDATE order_pro SET order_flag=1 WHERE use_no=? AND order_flag=0";
+		PreparedStatement ps5 = con.prepareStatement(sql5);
+		ps5.setInt(1, uc.getUse_no());
+		ps5.executeUpdate();
+		ps5.close();
+		
 	}
 	
 	//use_time과 use_charge를 검색
@@ -85,7 +93,7 @@ public class UsePcModel {
 	
 	public void insertByVo(UsePc usepc){
 		String sql = "INSERT INTO USE_PC(use_no, c_id, pc_no, m_id, use_time, use_charge, use_total, use_flag) VALUES(usepc_seq.nextval, ?, ?, ?, 0, 0, 0, 0)";
-		String sql2 = "SELECT use_no FROM USE_PC WHERE c_id=?";
+		String sql2 = "SELECT use_no FROM USE_PC WHERE use_flag=0 AND c_id=?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, usepc.getC_id());

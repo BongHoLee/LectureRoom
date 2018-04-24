@@ -19,12 +19,12 @@ public class UpdateUIth implements Runnable {
 		this.cus = cus;
 		usepcmodel = new UsePcModel();
 		
-		new Thread(this).start();
+		//new Thread(this).start();
 	}
 
 	@Override
 	public void run() {
-		while(true)
+		while(!Thread.currentThread().isInterrupted())
 		{
 			try {
 				

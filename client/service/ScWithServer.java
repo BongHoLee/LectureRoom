@@ -13,6 +13,7 @@ import client.view.ChatView;
 import client.vo.*;
 
 public class ScWithServer implements Runnable{
+	Thread upUI;
 	ChatView cv;
 	public Customer cus;											//클라이언트 정보를 담기 위한 vo객체
 	Socket connection;
@@ -57,7 +58,10 @@ public class ScWithServer implements Runnable{
 					cv.setVisible(true);
 					String message = (String)proto.getData();
 					cv.taChatAll.append("관리자 - : " + message + "\n");
+				}else if(proto.getState() == proto.EXIT){					//2. 종료 메시지를 받았을시
+					break;
 				}
+				
 			} catch (ClassNotFoundException | IOException e) {
 				System.exit(0);
 			}
@@ -65,10 +69,27 @@ public class ScWithServer implements Runnable{
 	 }
 	 
 	 
+	 //클라이언트 종료시 실행 메소드
+	 public void closeSc(){
+		 try {
+			 System.out.println("클라이언트 종료 메소드 실행");
+			 upUI.interrupt();
+			output.close();
+			input.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	 }
+	 
+	 
 	 //UseInfoView를 갱신하는 스레드 실행
 	 public void updateUseInfo() {	
 		 try {
-			Runnable r = new UpdateUIth(cus);	//UserInfoView를 갱신하기위한 스레드를 따로	
+			Runnable r = new UpdateUIth(cus);	//UserInfoView를 갱신하기위한 스레드를 따로
+			upUI = new Thread(r);
+			upUI.start();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +111,10 @@ public class ScWithServer implements Runnable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} finally{
+			closeSc();
+			System.out.println("클라이언트 소켓 종료 완료");
+		}
 	}
 
 }
