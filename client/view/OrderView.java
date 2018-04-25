@@ -51,7 +51,7 @@ public class OrderView extends JPanel implements ActionListener {
 		taTotalMenu = new JTextArea();
 		lTotalPrice = new JLabel("총 금액");
 		tfTotalPrice = new JTextField("0");
-		bCharge = new JButton("결제");
+		bCharge = new JButton("주문");
 		bCancel = new JButton("취소");
 		
 		try {
@@ -172,7 +172,7 @@ public class OrderView extends JPanel implements ActionListener {
 			ScWithServer.sendProtocol(protocol);				//스레드의 Protocol 전달 메소드 실행
 			orderList.clear();
 			
-			new MyDialog(null, "결제가 완료되었습니다");
+			new MyDialog(null, "주문이 완료되었습니다");
 			taTotalMenu.setText("");
 			tfTotalPrice.setText("0");
 			
