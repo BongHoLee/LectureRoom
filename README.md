@@ -1,4 +1,4 @@
-# PcRoom
+# LectureRoom
 JDBC, 소켓 네트워킹을 활용한 강의실 관리 프로그램
 
 -Server Side(강사), Client Side(수강생)를 구분한 강의실 관리 프로그램
